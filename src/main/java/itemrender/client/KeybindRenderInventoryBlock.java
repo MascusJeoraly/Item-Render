@@ -14,7 +14,6 @@ import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.ForgeHooksClient;
 
-import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
 import cpw.mods.fml.client.FMLClientHandler;
@@ -26,19 +25,22 @@ import cpw.mods.fml.relauncher.ReflectionHelper;
 public class KeybindRenderInventoryBlock {
 
 	/** Key descriptions */
-	private static final String desc = "Render Block";
+	private final String desc;
 	/** Default key values */
-	private static final int keyValues = Keyboard.KEY_P;
+	private final int keyValue;
 	public final KeyBinding key;
 
 	public FBOHelper fbo;
 	private String filenameSuffix = "";
 	private RenderItem itemRenderer = new RenderItem();
 
-	public KeybindRenderInventoryBlock(int textureSize, String filename_suffix) {
+	public KeybindRenderInventoryBlock(int textureSize, String filename_suffix,
+			int keyval, String des) {
 		fbo = new FBOHelper(textureSize);
 		filenameSuffix = filename_suffix;
-		key = new KeyBinding(desc, keyValues, "Item Render");
+		keyValue = keyval;
+		desc = des;
+		key = new KeyBinding(desc, keyValue, "Item Render");
 		ClientRegistry.registerKeyBinding(key);
 	}
 

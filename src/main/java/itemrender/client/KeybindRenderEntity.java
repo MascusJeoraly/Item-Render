@@ -14,7 +14,6 @@ import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.AxisAlignedBB;
 
-import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
@@ -26,18 +25,21 @@ import cpw.mods.fml.common.gameevent.InputEvent.KeyInputEvent;
 public class KeybindRenderEntity {
 
 	/** Key descriptions */
-	private static final String desc = "Render Entity";
+	private final String desc;
 	/** Default key values */
-	private static final int keyValues = Keyboard.KEY_L;
+	private final int keyValue;
 
 	public FBOHelper fbo;
 	private String filenameSuffix = "";
 	public final KeyBinding key;
 
-	public KeybindRenderEntity(int textureSize, String filename_suffix) {
+	public KeybindRenderEntity(int textureSize, String filename_suffix,
+			int keyval, String des) {
 		fbo = new FBOHelper(textureSize);
 		filenameSuffix = filename_suffix;
-		key = new KeyBinding(desc, keyValues, "Item Render");
+		keyValue = keyval;
+		desc = des;
+		key = new KeyBinding(desc, keyValue, "Item Render");
 		ClientRegistry.registerKeyBinding(key);
 	}
 
