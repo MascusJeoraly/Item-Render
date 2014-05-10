@@ -34,8 +34,7 @@ public class KeybindRenderInventoryBlock {
 	private String filenameSuffix = "";
 	private RenderItem itemRenderer = new RenderItem();
 
-	public KeybindRenderInventoryBlock(int textureSize, String filename_suffix,
-			int keyval, String des) {
+	public KeybindRenderInventoryBlock(int textureSize, String filename_suffix, int keyval, String des) {
 		fbo = new FBOHelper(textureSize);
 		filenameSuffix = filename_suffix;
 		keyValue = keyval;
@@ -46,14 +45,12 @@ public class KeybindRenderInventoryBlock {
 
 	@SubscribeEvent
 	public void onKeyInput(KeyInputEvent event) {
-		// FMLClientHandler.instance().getClient().inGameHasFocus
 		if (FMLClientHandler.instance().isGUIOpen(GuiChat.class))
 			return;
 		if (key.isPressed()) {
 			Minecraft minecraft = FMLClientHandler.instance().getClient();
 			if (minecraft.thePlayer != null) {
-				ItemStack current = minecraft.thePlayer
-						.getCurrentEquippedItem();
+				ItemStack current = minecraft.thePlayer.getCurrentEquippedItem();
 				if (current != null && current.getItem() != null) {
 
 					fbo.begin();
@@ -67,14 +64,9 @@ public class KeybindRenderInventoryBlock {
 
 					RenderHelper.enableGUIStandardItemLighting();
 
-					RenderBlocks renderBlocks = ReflectionHelper
-							.getPrivateValue(Render.class, itemRenderer,
-									"field_147909_c", "renderBlocks");
-					if (!ForgeHooksClient.renderInventoryItem(renderBlocks,
-							minecraft.renderEngine, current, true, 0.0f,
-							(float) 0, (float) 0)) {
-						itemRenderer.renderItemIntoGUI(null,
-								minecraft.renderEngine, current, 0, 0);
+					RenderBlocks renderBlocks = ReflectionHelper.getPrivateValue(Render.class, itemRenderer, "field_147909_c", "renderBlocks");
+					if (!ForgeHooksClient.renderInventoryItem(renderBlocks, minecraft.renderEngine, current, true, 0.0f, (float) 0, (float) 0)) {
+						itemRenderer.renderItemIntoGUI(null, minecraft.renderEngine, current, 0, 0);
 					}
 
 					GL11.glMatrixMode(GL11.GL_PROJECTION);
@@ -84,10 +76,7 @@ public class KeybindRenderInventoryBlock {
 
 					fbo.end();
 
-					fbo.saveToFile(new File(minecraft.mcDataDir, String.format(
-							"rendered/item_%s_%d%s.png", current.getItem()
-									.getUnlocalizedName(), current
-									.getItemDamage(), filenameSuffix)));
+					fbo.saveToFile(new File(minecraft.mcDataDir, String.format("rendered/item_%s_%d%s.png", current.getItem().getUnlocalizedName(), current.getItemDamage(), filenameSuffix)));
 
 					fbo.restoreTexture();
 				}

@@ -11,7 +11,7 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.InputEvent.KeyInputEvent;
 
 public class KeybindToggleRender {
-	// TODO WIP
+
 	/** Key descriptions */
 	private static final String desc = "Toggle Render";
 	/** Default key values */
@@ -25,7 +25,6 @@ public class KeybindToggleRender {
 
 	@SubscribeEvent
 	public void onKeyInput(KeyInputEvent event) {
-		// FMLClientHandler.instance().getClient().inGameHasFocus
 		if (FMLClientHandler.instance().isGUIOpen(GuiChat.class))
 			return;
 		if (key.isPressed()) {

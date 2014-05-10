@@ -14,10 +14,6 @@ public class RenderTickHandler {
 
 	@SubscribeEvent
 	public void tick(RenderTickEvent event) {
-		// if (event.phase != Phase.START)
-		// return;
-		// if (event.side != Side.SERVER)
-		// return;
 		if (keybindToRender != null && renderPreview) {
 			int originalTexture = GL11.glGetInteger(GL11.GL_TEXTURE_BINDING_2D);
 

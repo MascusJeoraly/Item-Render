@@ -33,8 +33,7 @@ public class KeybindRenderEntity {
 	private String filenameSuffix = "";
 	public final KeyBinding key;
 
-	public KeybindRenderEntity(int textureSize, String filename_suffix,
-			int keyval, String des) {
+	public KeybindRenderEntity(int textureSize, String filename_suffix, int keyval, String des) {
 		fbo = new FBOHelper(textureSize);
 		filenameSuffix = filename_suffix;
 		keyValue = keyval;
@@ -45,7 +44,6 @@ public class KeybindRenderEntity {
 
 	@SubscribeEvent
 	public void onKeyInput(KeyInputEvent event) {
-		// FMLClientHandler.instance().getClient().inGameHasFocus
 		if (FMLClientHandler.instance().isGUIOpen(GuiChat.class))
 			return;
 		if (key.isPressed()) {
@@ -65,14 +63,12 @@ public class KeybindRenderEntity {
 				double minBound = Math.min(minX, Math.min(minY, minZ));
 				double maxBound = Math.max(maxX, Math.max(maxY, maxZ));
 
-				double boundLimit = Math.max(Math.abs(minBound),
-						Math.abs(maxBound));
+				double boundLimit = Math.max(Math.abs(minBound), Math.abs(maxBound));
 
 				GL11.glMatrixMode(GL11.GL_PROJECTION);
 				GL11.glPushMatrix();
 				GL11.glLoadIdentity();
-				GL11.glOrtho(-boundLimit * 0.75, boundLimit * 0.75,
-						-boundLimit * 1.25, boundLimit * 0.25, -100.0, 100.0);
+				GL11.glOrtho(-boundLimit * 0.75, boundLimit * 0.75, -boundLimit * 1.25, boundLimit * 0.25, -100.0, 100.0);
 
 				GL11.glMatrixMode(GL11.GL_MODELVIEW);
 
@@ -85,9 +81,7 @@ public class KeybindRenderEntity {
 
 				fbo.end();
 
-				fbo.saveToFile(new File(minecraft.mcDataDir, String.format(
-						"rendered/entity_%s%s.png",
-						EntityList.getEntityString(current), filenameSuffix)));
+				fbo.saveToFile(new File(minecraft.mcDataDir, String.format("rendered/entity_%s%s.png", EntityList.getEntityString(current), filenameSuffix)));
 
 				fbo.restoreTexture();
 			}
@@ -109,9 +103,7 @@ public class KeybindRenderEntity {
 		RenderHelper.enableStandardItemLighting();
 		GL11.glRotatef(-135.0F, 0.0F, 1.0F, 0.0F);
 
-		GL11.glRotatef(
-				(float) Math.toDegrees(Math.asin(Math.tan(Math.toRadians(30)))),
-				1.0F, 0.0F, 0.0F);
+		GL11.glRotatef((float) Math.toDegrees(Math.asin(Math.tan(Math.toRadians(30)))), 1.0F, 0.0F, 0.0F);
 		GL11.glRotatef(-45, 0.0F, 1.0F, 0.0F);
 
 		entity.renderYawOffset = (float) Math.atan((double) (1 / 40.0F)) * 20.0F;
@@ -121,8 +113,7 @@ public class KeybindRenderEntity {
 		entity.prevRotationYawHead = entity.rotationYaw;
 		GL11.glTranslatef(0.0F, entity.yOffset, 0.0F);
 		RenderManager.instance.playerViewY = 180.0F;
-		RenderManager.instance.renderEntityWithPosYaw(entity, 0.0D, 0.0D, 0.0D,
-				0.0F, 1.0F);
+		RenderManager.instance.renderEntityWithPosYaw(entity, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F);
 		entity.renderYawOffset = f2;
 		entity.rotationYaw = f3;
 		entity.rotationPitch = f4;
