@@ -27,7 +27,7 @@ public class KeybindRenderCurrentPlayer {
 	/** Key descriptions */
 	private static final String desc = "Render Current Player";
 	/** Default key values */
-	private static final int keyValues = Keyboard.KEY_K;
+	private static final int keyValues = Keyboard.KEY_P;
 
 	public FBOHelper fbo;
 	private String filenameSuffix = "";
