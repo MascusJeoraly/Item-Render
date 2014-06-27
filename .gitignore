@@ -49,3 +49,4 @@ $RECYCLE.BIN/
 # Vim #
 ~*
 *.swp
+/Item-Render-1.7.2.iml
