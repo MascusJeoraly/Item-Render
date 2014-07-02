@@ -2,6 +2,7 @@ package itemrender;
 
 import cpw.mods.fml.client.event.ConfigChangedEvent;
 import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -11,6 +12,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import itemrender.client.*;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
+import org.apache.logging.log4j.Level;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GLContext;
 
@@ -70,6 +72,9 @@ public class ItemRenderMod {
             FMLCommonHandler.instance().bus().register(new KeybindRenderInventoryBlock(gridBlockSize, "_grid", Keyboard.KEY_RBRACKET, "Render Block (" + gridBlockSize + ")"));
             FMLCommonHandler.instance().bus().register(new KeybindToggleRender());
             FMLCommonHandler.instance().bus().register(new KeybindRenderCurrentPlayer(playerSize, ""));
+        } else {
+            FMLCommonHandler.instance().bus().register(new KeybindWarn());
+            FMLLog.log("Item Render", Level.ERROR, "[Item Render] OpenGL Error, please upgrade your drivers or system.");
         }
     }
 
