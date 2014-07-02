@@ -16,7 +16,7 @@ import org.apache.logging.log4j.Level;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GLContext;
 
-@Mod(modid = ItemRenderMod.MODID, name = "Item Render", version = "1.5", dependencies = "required-after:Forge@[10.12.2.1147,);", guiFactory = "itemrender.ItemRenderGuiFactory")
+@Mod(modid = ItemRenderMod.MODID, name = "Item Render", version = "1.6", dependencies = "required-after:Forge@[10.12.2.1147,);", guiFactory = "itemrender.ItemRenderGuiFactory")
 public class ItemRenderMod {
 
     public static final String MODID = "ItemRender";
