@@ -61,6 +61,4 @@ task deobfJar(type: Jar) {
 // make sure all of these happen when we run build
 build.dependsOn sourceJar, deobfJar
 
-tasks.withType(Compile) {
-    options.encoding = 'UTF-8'
-}
+compileJava.options.encoding = 'UTF-8'
