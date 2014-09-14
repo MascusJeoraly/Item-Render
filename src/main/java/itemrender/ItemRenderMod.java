@@ -7,8 +7,6 @@ import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import itemrender.client.*;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
@@ -46,8 +44,9 @@ public class ItemRenderMod {
     public static boolean gl32_enabled = false;
 
     @Mod.EventHandler
-    @SideOnly(Side.CLIENT)
     public void preInit(FMLPreInitializationEvent event) {
+        if (event.getSide().isServer())
+            return;
         gl32_enabled = GLContext.getCapabilities().OpenGL32;
 
         // Config
@@ -56,8 +55,9 @@ public class ItemRenderMod {
     }
 
     @Mod.EventHandler
-    @SideOnly(Side.CLIENT)
     public void init(FMLInitializationEvent event) {
+        if (event.getSide().isServer())
+            return;
         FMLCommonHandler.instance().bus().register(instance);
 
         MinecraftForge.EVENT_BUS.register(renderTickHandler);
