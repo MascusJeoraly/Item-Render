@@ -1,7 +1,11 @@
-Item-Render-1.7.2
+ItemRender
 =================
 
-Item Render 1.7.2 Edition
+Minecraft mod to render items as displayed in the inventory to a file.
+
+Currently for Minecraft 1.7.10
+
+Original author: Kobata
 
 Status: [![Build Status](https://drone.io/github.com/Meow-J/Item-Render-1.7.2/status.png)](https://drone.io/github.com/Meow-J/Item-Render-1.7.2/latest)
 
