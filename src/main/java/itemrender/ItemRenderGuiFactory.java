@@ -11,6 +11,8 @@
 package itemrender;
 
 import cpw.mods.fml.client.IModGuiFactory;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 
@@ -24,6 +26,7 @@ import java.util.Set;
 public class ItemRenderGuiFactory implements IModGuiFactory {
 
     @Override
+    @SideOnly(Side.CLIENT)
     public void initialize(Minecraft minecraftInstance) {
 
     }
