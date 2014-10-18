@@ -7,13 +7,15 @@ import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.logging.log4j.Level;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GLContext;
 
-@Mod(modid = ItemRenderMod.MODID, name = "Item Render", version = "2.0-alpha")//, dependencies = "required-after:Forge@[10.12.2.1147,);", guiFactory = "itemrender.ItemRenderGuiFactory")
+@Mod(modid = ItemRenderMod.MODID, name = "Item Render", version = "2.0-alpha")
+//, dependencies = "required-after:Forge@[10.12.2.1147,);", guiFactory = "itemrender.ItemRenderGuiFactory")
 public class ItemRenderMod {
 
     public static final String MODID = "ItemRender";
@@ -51,6 +53,11 @@ public class ItemRenderMod {
         // Config
 //        cfg = new Configuration(event.getSuggestedConfigurationFile());
 //        syncConfig();
+    }
+
+    @Mod.EventHandler
+    public void serverStarting(FMLServerStartingEvent event) {
+        event.registerServerCommand(new CommandItemRender());
     }
 
     @Mod.EventHandler
