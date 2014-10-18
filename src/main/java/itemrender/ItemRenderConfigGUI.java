@@ -10,18 +10,17 @@
 
 package itemrender;
 
-import cpw.mods.fml.client.config.GuiConfig;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraftforge.common.config.ConfigElement;
-import net.minecraftforge.common.config.Configuration;
+
 
 /**
  * Created by Fang0716 on 6/27/2014.
  *
  * @author Meow J
  */
+/*
 public class ItemRenderConfigGUI extends GuiConfig {
     public ItemRenderConfigGUI(GuiScreen parentScreen) {
         super(parentScreen, new ConfigElement(ItemRenderMod.cfg.getCategory(Configuration.CATEGORY_GENERAL)).getChildElements(), ItemRenderMod.MODID, false, true, GuiConfig.getAbridgedConfigPath(ItemRenderMod.cfg.toString()));
     }
 }
+*/

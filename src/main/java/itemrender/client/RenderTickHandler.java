@@ -1,9 +1,10 @@
 package itemrender.client;
 
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.TickEvent.RenderTickEvent;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
@@ -15,7 +16,7 @@ public class RenderTickHandler {
     }
 
     @SubscribeEvent
-    public void tick(RenderTickEvent event) {
+    public void tick(TickEvent.RenderTickEvent event) {
         if (keybindToRender != null && renderPreview) {
             int originalTexture = GL11.glGetInteger(GL11.GL_TEXTURE_BINDING_2D);
 

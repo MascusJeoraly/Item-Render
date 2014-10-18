@@ -10,19 +10,13 @@
 
 package itemrender;
 
-import cpw.mods.fml.client.IModGuiFactory;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiScreen;
-
-import java.util.Set;
 
 /**
  * Created by Fang0716 on 6/27/2014.
  *
  * @author Meow J
  */
+/*
 public class ItemRenderGuiFactory implements IModGuiFactory {
 
     @Override
@@ -46,3 +40,4 @@ public class ItemRenderGuiFactory implements IModGuiFactory {
         return null;
     }
 }
+*/

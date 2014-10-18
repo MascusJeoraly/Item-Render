@@ -15,16 +15,22 @@ buildscript {
     }
 }
 
+apply plugin: 'fml'
 
-apply plugin: 'forge'
-
-version = "1.6"
-group= "git.mj.itemrender" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+version = "2.0-alpha"
+group= "git.meowinnovation.itemrender" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "ItemRender"
 
 minecraft {
-    version = "1.7.10-10.13.0.1180"
-    assetDir = "eclipse/assets"
+    version = "1.8-8.0.5.1012-1.8"
+    runDir = "eclipse"
+
+	// the mappings can be changed at any time, and must be in the following format.
+    // snapshot_YYYYMMDD   snapshot are built nightly.
+    // stable_#            stables are built at the discretion of the MCP team.
+    // Use non-default mappings at your own risk. they may not allways work.
+    // simply re-run your setup task after changing the mappings to update your workspace.
+    mappings = "snapshot_nodoc_20140930"
 }
 processResources
 {
