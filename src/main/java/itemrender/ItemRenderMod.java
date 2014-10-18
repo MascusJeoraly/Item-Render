@@ -62,12 +62,12 @@ public class ItemRenderMod {
         FMLCommonHandler.instance().bus().register(renderTickHandler);
 
         if (gl32_enabled) {
-            KeybindRenderInventoryBlock defaultRender = new KeybindRenderInventoryBlock(mainBlockSize, "", Keyboard.KEY_LBRACKET, "Render Block (" + mainBlockSize + ")");
+            KeybindRenderInventoryBlock defaultRender = new KeybindRenderInventoryBlock(mainBlockSize, "", Keyboard.KEY_LBRACKET, "Render Block (" + "Broken" + ")");
             RenderTickHandler.keybindToRender = defaultRender;
             FMLCommonHandler.instance().bus().register(new KeybindRenderEntity(mainEntitySize, "", Keyboard.KEY_SEMICOLON, "Render Entity (" + mainEntitySize + ")"));
             FMLCommonHandler.instance().bus().register(new KeybindRenderEntity(gridEntitySize, "_grid", Keyboard.KEY_APOSTROPHE, "Render Entity (" + gridEntitySize + ")"));
             FMLCommonHandler.instance().bus().register(defaultRender);
-            FMLCommonHandler.instance().bus().register(new KeybindRenderInventoryBlock(gridBlockSize, "_grid", Keyboard.KEY_RBRACKET, "Render Block (" + gridBlockSize + ")"));
+            FMLCommonHandler.instance().bus().register(new KeybindRenderInventoryBlock(gridBlockSize, "_grid", Keyboard.KEY_RBRACKET, "Render Block (" + "Broken" + ")"));
             FMLCommonHandler.instance().bus().register(new KeybindToggleRender());
             FMLCommonHandler.instance().bus().register(new KeybindRenderCurrentPlayer(playerSize, ""));
         } else {
