@@ -36,6 +36,7 @@ public class KeybindRenderEntity {
     public FBOHelper fbo;
     private String filenameSuffix = "";
     public final KeyBinding key;
+    public static float EntityRenderScale = 1.0F;
 
     public KeybindRenderEntity(int textureSize, String filename_suffix, int keyval, String des) {
         fbo = new FBOHelper(textureSize);
@@ -96,7 +97,7 @@ public class KeybindRenderEntity {
 
         GL11.glEnable(GL11.GL_COLOR_MATERIAL);
         GL11.glPushMatrix();
-        GL11.glScalef((float) (-1), (float) 1, (float) 1);
+        GL11.glScalef(-KeybindRenderEntity.EntityRenderScale, KeybindRenderEntity.EntityRenderScale, KeybindRenderEntity.EntityRenderScale);
         GL11.glRotatef(180.0F, 0.0F, 0.0F, 1.0F);
         float f2 = entity.renderYawOffset;
         float f3 = entity.rotationYaw;
