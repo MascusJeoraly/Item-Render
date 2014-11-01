@@ -17,24 +17,25 @@ public class RenderTickHandler {
 
     @SubscribeEvent
     public void tick(TickEvent.RenderTickEvent event) {
-        if (keybindToRender != null && renderPreview) {
-            int originalTexture = GL11.glGetInteger(GL11.GL_TEXTURE_BINDING_2D);
+        if (event.phase == TickEvent.Phase.END)
+            if (keybindToRender != null && renderPreview) {
+                int originalTexture = GL11.glGetInteger(GL11.GL_TEXTURE_BINDING_2D);
 
-            // Bind framebuffer texture
-            keybindToRender.fbo.bind();
-            GL11.glBegin(GL11.GL_QUADS);
-            GL11.glTexCoord2f(0, 0);
-            GL11.glVertex2i(0, 0);
-            GL11.glTexCoord2f(0, 1);
-            GL11.glVertex2i(0, 128);
-            GL11.glTexCoord2f(1, 1);
-            GL11.glVertex2i(128, 128);
-            GL11.glTexCoord2f(1, 0);
-            GL11.glVertex2i(128, 0);
-            GL11.glEnd();
+                // Bind framebuffer texture
+                keybindToRender.fbo.bind();
+                GL11.glBegin(GL11.GL_QUADS);
+                GL11.glTexCoord2f(0, 0);
+                GL11.glVertex2i(0, 0);
+                GL11.glTexCoord2f(0, 1);
+                GL11.glVertex2i(0, 128);
+                GL11.glTexCoord2f(1, 1);
+                GL11.glVertex2i(128, 128);
+                GL11.glTexCoord2f(1, 0);
+                GL11.glVertex2i(128, 0);
+                GL11.glEnd();
 
-            // Restore old texture
-            GL11.glBindTexture(GL11.GL_TEXTURE_2D, originalTexture);
-        }
+                // Restore old texture
+                GL11.glBindTexture(GL11.GL_TEXTURE_2D, originalTexture);
+            }
     }
 }
