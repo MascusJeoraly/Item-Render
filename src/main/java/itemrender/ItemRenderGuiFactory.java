@@ -29,7 +29,6 @@ public class ItemRenderGuiFactory implements IModGuiFactory {
     @Override
     @SideOnly(Side.CLIENT)
     public void initialize(Minecraft minecraftInstance) {
-
     }
 
     @Override

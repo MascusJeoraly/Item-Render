@@ -15,7 +15,7 @@ public class CommandItemRender extends CommandBase {
 
     @Override
     public String getCommandUsage(ICommandSender sender) {
-        return "/itemrender scale (value)";
+        return "/itemrender scale [value]";
     }
 
     @Override
@@ -23,7 +23,7 @@ public class CommandItemRender extends CommandBase {
         if (args.length == 0) {
             sender.addChatMessage(new ChatComponentText(EnumChatFormatting.RED + "/itemrender scale [value]"));
             sender.addChatMessage(new ChatComponentText(EnumChatFormatting.AQUA + "Use this command to control entity rendering scale."));
-            sender.addChatMessage(new ChatComponentText(EnumChatFormatting.AQUA + "Scale Range: (0, 2]. Default: 1. Current: " + KeybindRenderEntity.EntityRenderScale));
+            sender.addChatMessage(new ChatComponentText(EnumChatFormatting.AQUA + "Scale Range: (0.0, 2.0]. Default: 1.0. Current: " + KeybindRenderEntity.EntityRenderScale));
         } else if (args[0].equalsIgnoreCase("scale")) {
             if (args.length == 2) {
                 float value = Float.valueOf(args[1]);
@@ -31,11 +31,11 @@ public class CommandItemRender extends CommandBase {
                     KeybindRenderEntity.EntityRenderScale = Float.valueOf(args[1]);
                     sender.addChatMessage(new ChatComponentText(EnumChatFormatting.GREEN + "Scale: " + value));
                 } else {
-                    sender.addChatMessage(new ChatComponentText(EnumChatFormatting.RED + "Scale Range: (0, 2]"));
+                    sender.addChatMessage(new ChatComponentText(EnumChatFormatting.RED + "Scale Range: (0.0, 2.0]"));
                 }
             } else {
                 sender.addChatMessage(new ChatComponentText(EnumChatFormatting.AQUA + "Current Scale: " + KeybindRenderEntity.EntityRenderScale));
-                sender.addChatMessage(new ChatComponentText(EnumChatFormatting.RED + "Execute /itemrender scale [value] to change entity rendering scale."));
+                sender.addChatMessage(new ChatComponentText(EnumChatFormatting.RED + "Execute /itemrender scale [value] to tweak entity rendering scale."));
             }
         }
     }

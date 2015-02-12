@@ -24,6 +24,8 @@ import java.io.File;
 @SideOnly(Side.CLIENT)
 public class KeybindRenderEntity {
 
+    public static float EntityRenderScale = 1.0F;
+    public final KeyBinding key;
     /**
      * Key descriptions
      */
@@ -32,11 +34,8 @@ public class KeybindRenderEntity {
      * Default key values
      */
     private final int keyValue;
-
     public FBOHelper fbo;
     private String filenameSuffix = "";
-    public final KeyBinding key;
-    public static float EntityRenderScale = 1.0F;
 
     public KeybindRenderEntity(int textureSize, String filename_suffix, int keyval, String des) {
         fbo = new FBOHelper(textureSize);
@@ -47,57 +46,16 @@ public class KeybindRenderEntity {
         ClientRegistry.registerKeyBinding(key);
     }
 
-    @SubscribeEvent
-    public void onKeyInput(InputEvent.KeyInputEvent event) {
-        if (FMLClientHandler.instance().isGUIOpen(GuiChat.class))
-            return;
-        if (key.isPressed()) {
-            Minecraft minecraft = FMLClientHandler.instance().getClient();
-            if (minecraft.pointedEntity != null) {
-                EntityLivingBase current = (EntityLivingBase) minecraft.pointedEntity;
-                fbo.begin();
-
-                AxisAlignedBB aabb = current.getEntityBoundingBox();
-                double minX = aabb.minX - current.posX;
-                double maxX = aabb.maxX - current.posX;
-                double minY = aabb.minY - current.posY;
-                double maxY = aabb.maxY - current.posY;
-                double minZ = aabb.minZ - current.posZ;
-                double maxZ = aabb.maxZ - current.posZ;
-
-                double minBound = Math.min(minX, Math.min(minY, minZ));
-                double maxBound = Math.max(maxX, Math.max(maxY, maxZ));
-
-                double boundLimit = Math.max(Math.abs(minBound), Math.abs(maxBound));
-
-                GL11.glMatrixMode(GL11.GL_PROJECTION);
-                GL11.glPushMatrix();
-                GL11.glLoadIdentity();
-                GL11.glOrtho(-boundLimit * 0.75, boundLimit * 0.75, -boundLimit * 1.25, boundLimit * 0.25, -100.0, 100.0);
-
-                GL11.glMatrixMode(GL11.GL_MODELVIEW);
-
-                renderEntity(current); // GuiInventory.func_110423_a(0, 0, 1, 1,
-                // 1,
-                // current);
-
-                GL11.glMatrixMode(GL11.GL_PROJECTION);
-                GL11.glPopMatrix();
-
-                fbo.end();
-
-                fbo.saveToFile(new File(minecraft.mcDataDir, String.format("rendered/entity_%s%s.png", EntityList.getEntityString(current), filenameSuffix)));
-
-                fbo.restoreTexture();
-            }
-        }
-    }
-
-    private void renderEntity(EntityLivingBase entity) {
+    protected static void renderEntity(EntityLivingBase entity, boolean renderPlayer) {
         Minecraft minecraft = FMLClientHandler.instance().getClient();
         GL11.glEnable(GL11.GL_COLOR_MATERIAL);
         GL11.glPushMatrix();
-        GL11.glScalef(-KeybindRenderEntity.EntityRenderScale, KeybindRenderEntity.EntityRenderScale, KeybindRenderEntity.EntityRenderScale);
+
+        if (renderPlayer)
+            GL11.glScalef((float) (-1), (float) 1, (float) 1);
+        else
+            GL11.glScalef(-KeybindRenderEntity.EntityRenderScale, KeybindRenderEntity.EntityRenderScale, KeybindRenderEntity.EntityRenderScale);
+
         GL11.glRotatef(180.0F, 0.0F, 0.0F, 1.0F);
         float f2 = entity.renderYawOffset;
         float f3 = entity.rotationYaw;
@@ -130,5 +88,49 @@ public class KeybindRenderEntity {
         OpenGlHelper.setActiveTexture(OpenGlHelper.lightmapTexUnit);
         GL11.glDisable(GL11.GL_TEXTURE_2D);
         OpenGlHelper.setActiveTexture(OpenGlHelper.defaultTexUnit);
+    }
+
+    @SubscribeEvent
+    public void onKeyInput(InputEvent.KeyInputEvent event) {
+        if (FMLClientHandler.instance().isGUIOpen(GuiChat.class))
+            return;
+        if (key.isPressed()) {
+            Minecraft minecraft = FMLClientHandler.instance().getClient();
+            if (minecraft.pointedEntity != null) {
+                EntityLivingBase current = (EntityLivingBase) minecraft.pointedEntity;
+                fbo.begin();
+
+                AxisAlignedBB aabb = current.getEntityBoundingBox();
+                double minX = aabb.minX - current.posX;
+                double maxX = aabb.maxX - current.posX;
+                double minY = aabb.minY - current.posY;
+                double maxY = aabb.maxY - current.posY;
+                double minZ = aabb.minZ - current.posZ;
+                double maxZ = aabb.maxZ - current.posZ;
+
+                double minBound = Math.min(minX, Math.min(minY, minZ));
+                double maxBound = Math.max(maxX, Math.max(maxY, maxZ));
+
+                double boundLimit = Math.max(Math.abs(minBound), Math.abs(maxBound));
+
+                GL11.glMatrixMode(GL11.GL_PROJECTION);
+                GL11.glPushMatrix();
+                GL11.glLoadIdentity();
+                GL11.glOrtho(-boundLimit * 0.75, boundLimit * 0.75, -boundLimit * 1.25, boundLimit * 0.25, -100.0, 100.0);
+
+                GL11.glMatrixMode(GL11.GL_MODELVIEW);
+
+                renderEntity(current, false);
+
+                GL11.glMatrixMode(GL11.GL_PROJECTION);
+                GL11.glPopMatrix();
+
+                fbo.end();
+
+                fbo.saveToFile(new File(minecraft.mcDataDir, String.format("rendered/entity_%s%s.png", EntityList.getEntityString(current), filenameSuffix)));
+
+                fbo.restoreTexture();
+            }
+        }
     }
 }

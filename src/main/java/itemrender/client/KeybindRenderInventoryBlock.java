@@ -64,11 +64,9 @@ public class KeybindRenderInventoryBlock {
                     RenderHelper.enableGUIStandardItemLighting();
 
                     itemRenderer.renderItemIntoGUI(current, 0, 0);
-
                     GL11.glMatrixMode(GL11.GL_PROJECTION);
-                    GL11.glPopMatrix();
-
                     RenderHelper.disableStandardItemLighting();
+                    GL11.glPopMatrix();
 
                     fbo.end();
                     fbo.saveToFile(new File(minecraft.mcDataDir, String.format("rendered/item_%s_%d%s.png", current.getItem().getUnlocalizedName(), current.getItemDamage(), filenameSuffix)));
