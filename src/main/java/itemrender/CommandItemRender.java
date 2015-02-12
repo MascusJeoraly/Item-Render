@@ -9,7 +9,7 @@ import net.minecraft.util.EnumChatFormatting;
 public class CommandItemRender extends CommandBase {
 
     @Override
-    public String getCommandName() {
+    public String getName() {
         return "itemrender";
     }
 
@@ -19,7 +19,7 @@ public class CommandItemRender extends CommandBase {
     }
 
     @Override
-    public void processCommand(ICommandSender sender, String[] args) {
+    public void execute(ICommandSender sender, String[] args) {
         if (args.length == 0) {
             sender.addChatMessage(new ChatComponentText(EnumChatFormatting.RED + "/itemrender scale [value]"));
             sender.addChatMessage(new ChatComponentText(EnumChatFormatting.AQUA + "Use this command to control entity rendering scale."));

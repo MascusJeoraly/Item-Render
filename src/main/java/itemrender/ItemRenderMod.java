@@ -1,23 +1,24 @@
 package itemrender;
 
-import cpw.mods.fml.client.event.ConfigChangedEvent;
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.FMLLog;
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.event.FMLServerStartingEvent;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+
 import itemrender.client.*;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.fml.client.event.ConfigChangedEvent;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.common.FMLLog;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.logging.log4j.Level;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GLContext;
 
-@Mod(modid = ItemRenderMod.MODID, name = "Item Render", version = "1.7", dependencies = "required-after:Forge@[10.12.2.1147,);", guiFactory = "itemrender.ItemRenderGuiFactory")
+@Mod(modid = ItemRenderMod.MODID, name = "Item Render", version = "2.0-alpha"
+        , dependencies = "required-after:Forge@[10.12.2.1147,);", guiFactory = "itemrender.ItemRenderGuiFactory")
 public class ItemRenderMod {
 
     public static final String MODID = "ItemRender";
@@ -30,19 +31,19 @@ public class ItemRenderMod {
     public static Configuration cfg;
 
     public static final int DEFAULT_MAIN_BLOCK_SIZE = 128;
-    public static int mainBlockSize;
+    public static int mainBlockSize = DEFAULT_MAIN_BLOCK_SIZE;
 
     public static final int DEFAULT_GRID_BLOCK_SIZE = 32;
-    public static int gridBlockSize;
+    public static int gridBlockSize = DEFAULT_GRID_BLOCK_SIZE;
 
     public static final int DEFAULT_MAIN_ENTITY_SIZE = 512;
-    public static int mainEntitySize;
+    public static int mainEntitySize = DEFAULT_MAIN_ENTITY_SIZE;
 
     public static final int DEFAULT_GRID_ENTITY_SIZE = 128;
-    public static int gridEntitySize;
+    public static int gridEntitySize = DEFAULT_GRID_ENTITY_SIZE;
 
     public static final int DEFAULT_PLAYER_SIZE = 1024;
-    public static int playerSize;
+    public static int playerSize = DEFAULT_PLAYER_SIZE;
 
     public static boolean gl32_enabled = false;
 
@@ -58,21 +59,25 @@ public class ItemRenderMod {
     }
 
     @Mod.EventHandler
+    public void serverStarting(FMLServerStartingEvent event) {
+        event.registerServerCommand(new CommandItemRender());
+    }
+
+    @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
         if (event.getSide().isServer())
             return;
         FMLCommonHandler.instance().bus().register(instance);
 
-        MinecraftForge.EVENT_BUS.register(renderTickHandler);
         FMLCommonHandler.instance().bus().register(renderTickHandler);
 
         if (gl32_enabled) {
-            KeybindRenderInventoryBlock defaultRender = new KeybindRenderInventoryBlock(mainBlockSize, "", Keyboard.KEY_LBRACKET, "Render Block (" + mainBlockSize + ")");
+            KeybindRenderInventoryBlock defaultRender = new KeybindRenderInventoryBlock(mainBlockSize, "", Keyboard.KEY_LBRACKET, "Render Block (" + "Broken" + ")");
             RenderTickHandler.keybindToRender = defaultRender;
             FMLCommonHandler.instance().bus().register(new KeybindRenderEntity(mainEntitySize, "", Keyboard.KEY_SEMICOLON, "Render Entity (" + mainEntitySize + ")"));
             FMLCommonHandler.instance().bus().register(new KeybindRenderEntity(gridEntitySize, "_grid", Keyboard.KEY_APOSTROPHE, "Render Entity (" + gridEntitySize + ")"));
             FMLCommonHandler.instance().bus().register(defaultRender);
-            FMLCommonHandler.instance().bus().register(new KeybindRenderInventoryBlock(gridBlockSize, "_grid", Keyboard.KEY_RBRACKET, "Render Block (" + gridBlockSize + ")"));
+            FMLCommonHandler.instance().bus().register(new KeybindRenderInventoryBlock(gridBlockSize, "_grid", Keyboard.KEY_RBRACKET, "Render Block (" + "Broken" + ")"));
             FMLCommonHandler.instance().bus().register(new KeybindToggleRender());
             FMLCommonHandler.instance().bus().register(new KeybindRenderCurrentPlayer(playerSize, ""));
         } else {
@@ -81,10 +86,6 @@ public class ItemRenderMod {
         }
     }
 
-    @Mod.EventHandler
-    public void serverStarting(FMLServerStartingEvent event) {
-        event.registerServerCommand(new CommandItemRender());
-    }
 
     @SubscribeEvent
     public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event) {
@@ -101,4 +102,5 @@ public class ItemRenderMod {
         if (cfg.hasChanged())
             cfg.save();
     }
+
 }

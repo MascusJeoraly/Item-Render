@@ -1,21 +1,21 @@
 package itemrender.client;
 
-import cpw.mods.fml.client.FMLClientHandler;
-import cpw.mods.fml.client.registry.ClientRegistry;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.InputEvent.KeyInputEvent;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+
 import itemrender.client.rendering.FBOHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiChat;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraftforge.fml.client.FMLClientHandler;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.InputEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
@@ -48,7 +48,7 @@ public class KeybindRenderEntity {
     }
 
     @SubscribeEvent
-    public void onKeyInput(KeyInputEvent event) {
+    public void onKeyInput(InputEvent.KeyInputEvent event) {
         if (FMLClientHandler.instance().isGUIOpen(GuiChat.class))
             return;
         if (key.isPressed()) {
@@ -57,7 +57,7 @@ public class KeybindRenderEntity {
                 EntityLivingBase current = (EntityLivingBase) minecraft.pointedEntity;
                 fbo.begin();
 
-                AxisAlignedBB aabb = current.boundingBox;
+                AxisAlignedBB aabb = current.getEntityBoundingBox();
                 double minX = aabb.minX - current.posX;
                 double maxX = aabb.maxX - current.posX;
                 double minY = aabb.minY - current.posY;
@@ -94,7 +94,7 @@ public class KeybindRenderEntity {
     }
 
     private void renderEntity(EntityLivingBase entity) {
-
+        Minecraft minecraft = FMLClientHandler.instance().getClient();
         GL11.glEnable(GL11.GL_COLOR_MATERIAL);
         GL11.glPushMatrix();
         GL11.glScalef(-KeybindRenderEntity.EntityRenderScale, KeybindRenderEntity.EntityRenderScale, KeybindRenderEntity.EntityRenderScale);
@@ -116,9 +116,9 @@ public class KeybindRenderEntity {
         entity.rotationPitch = -((float) Math.atan((double) (1 / 40.0F))) * 20.0F;
         entity.rotationYawHead = entity.rotationYaw;
         entity.prevRotationYawHead = entity.rotationYaw;
-        GL11.glTranslatef(0.0F, entity.yOffset, 0.0F);
-        RenderManager.instance.playerViewY = 180.0F;
-        RenderManager.instance.renderEntityWithPosYaw(entity, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F);
+        GL11.glTranslated(0.0D, entity.getYOffset(), 0.0D);
+        minecraft.getRenderManager().playerViewY = 180.0F;
+        minecraft.getRenderManager().renderEntityWithPosYaw(entity, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F);
         entity.renderYawOffset = f2;
         entity.rotationYaw = f3;
         entity.rotationPitch = f4;
