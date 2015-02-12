@@ -2,20 +2,23 @@ package itemrender;
 
 
 import itemrender.client.*;
+import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.logging.log4j.Level;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GLContext;
 
-@Mod(modid = ItemRenderMod.MODID, name = "Item Render", version = "2.0-alpha")
-//, dependencies = "required-after:Forge@[10.12.2.1147,);", guiFactory = "itemrender.ItemRenderGuiFactory")
+@Mod(modid = ItemRenderMod.MODID, name = "Item Render", version = "2.0-alpha"
+        , dependencies = "required-after:Forge@[10.12.2.1147,);", guiFactory = "itemrender.ItemRenderGuiFactory")
 public class ItemRenderMod {
 
     public static final String MODID = "ItemRender";
@@ -25,7 +28,7 @@ public class ItemRenderMod {
     @SideOnly(Side.CLIENT)
     private RenderTickHandler renderTickHandler = new RenderTickHandler();
 
-//    public static Configuration cfg;
+    public static Configuration cfg;
 
     public static final int DEFAULT_MAIN_BLOCK_SIZE = 128;
     public static int mainBlockSize = DEFAULT_MAIN_BLOCK_SIZE;
@@ -51,8 +54,8 @@ public class ItemRenderMod {
         gl32_enabled = GLContext.getCapabilities().OpenGL32;
 
         // Config
-//        cfg = new Configuration(event.getSuggestedConfigurationFile());
-//        syncConfig();
+        cfg = new Configuration(event.getSuggestedConfigurationFile());
+        syncConfig();
     }
 
     @Mod.EventHandler
@@ -83,7 +86,7 @@ public class ItemRenderMod {
         }
     }
 
-/*
+
     @SubscribeEvent
     public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event) {
         if (event.modID.equals(ItemRenderMod.MODID))
@@ -99,5 +102,5 @@ public class ItemRenderMod {
         if (cfg.hasChanged())
             cfg.save();
     }
-*/
+
 }

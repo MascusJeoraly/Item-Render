@@ -11,12 +11,19 @@
 package itemrender;
 
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiScreen;
+import net.minecraftforge.fml.client.IModGuiFactory;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.Set;
+
 /**
  * Created by Fang0716 on 6/27/2014.
  *
  * @author Meow J
  */
-/*
 public class ItemRenderGuiFactory implements IModGuiFactory {
 
     @Override
@@ -40,4 +47,3 @@ public class ItemRenderGuiFactory implements IModGuiFactory {
         return null;
     }
 }
-*/
