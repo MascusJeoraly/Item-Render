@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014 Yu Fang
+ * Copyright (c) 2015 Jerrell Fang
  *
  * This project is Open Source and distributed under The MIT License (MIT)
  * (http://opensource.org/licenses/MIT)

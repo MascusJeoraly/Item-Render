@@ -1,6 +1,16 @@
+/*
+ * Copyright (c) 2015 Jerrell Fang
+ *
+ * This project is Open Source and distributed under The MIT License (MIT)
+ * (http://opensource.org/licenses/MIT)
+ *
+ * You should have received a copy of the The MIT License along with
+ * this project.   If not, see <http://opensource.org/licenses/MIT>.
+ */
 package itemrender.client;
 
 
+import itemrender.client.keybind.KeybindRenderInventoryBlock;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.relauncher.Side;

@@ -1,7 +1,17 @@
+/*
+ * Copyright (c) 2015 Jerrell Fang
+ *
+ * This project is Open Source and distributed under The MIT License (MIT)
+ * (http://opensource.org/licenses/MIT)
+ *
+ * You should have received a copy of the The MIT License along with
+ * this project.   If not, see <http://opensource.org/licenses/MIT>.
+ */
 package itemrender;
 
-import itemrender.client.KeybindRenderEntity;
+import itemrender.client.keybind.KeybindRenderEntity;
 import net.minecraft.command.CommandBase;
+import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
@@ -19,10 +29,10 @@ public class CommandItemRender extends CommandBase {
     }
 
     @Override
-    public void execute(ICommandSender sender, String[] args) {
+    public void execute(ICommandSender sender, String[] args) throws CommandException {
         if (args.length == 0) {
             sender.addChatMessage(new ChatComponentText(EnumChatFormatting.RED + "/itemrender scale [value]"));
-            sender.addChatMessage(new ChatComponentText(EnumChatFormatting.AQUA + "Use this command to control entity rendering scale."));
+            sender.addChatMessage(new ChatComponentText(EnumChatFormatting.AQUA + "Execute this command to control entity rendering scale."));
             sender.addChatMessage(new ChatComponentText(EnumChatFormatting.AQUA + "Scale Range: (0.0, 2.0]. Default: 1.0. Current: " + KeybindRenderEntity.EntityRenderScale));
         } else if (args[0].equalsIgnoreCase("scale")) {
             if (args.length == 2) {
@@ -35,8 +45,9 @@ public class CommandItemRender extends CommandBase {
                 }
             } else {
                 sender.addChatMessage(new ChatComponentText(EnumChatFormatting.AQUA + "Current Scale: " + KeybindRenderEntity.EntityRenderScale));
-                sender.addChatMessage(new ChatComponentText(EnumChatFormatting.RED + "Execute /itemrender scale [value] to tweak entity rendering scale."));
+                sender.addChatMessage(new ChatComponentText(EnumChatFormatting.RED + "Execute /itemrender scale [value] to control entity rendering " + EnumChatFormatting.RED + "scale."));
             }
-        }
+        } else
+            throw new CommandException("/itemrender scale [value]", 0);
     }
 }

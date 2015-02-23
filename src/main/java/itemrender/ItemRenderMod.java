@@ -1,7 +1,17 @@
+/*
+ * Copyright (c) 2015 Jerrell Fang
+ *
+ * This project is Open Source and distributed under The MIT License (MIT)
+ * (http://opensource.org/licenses/MIT)
+ *
+ * You should have received a copy of the The MIT License along with
+ * this project.   If not, see <http://opensource.org/licenses/MIT>.
+ */
 package itemrender;
 
 
-import itemrender.client.*;
+import itemrender.client.RenderTickHandler;
+import itemrender.client.keybind.*;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.FMLCommonHandler;
@@ -17,7 +27,7 @@ import org.apache.logging.log4j.Level;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GLContext;
 
-@Mod(modid = ItemRenderMod.MODID, name = "Item Render", version = "2.1",
+@Mod(modid = ItemRenderMod.MODID, name = "Item Render", version = "@VERSION@",
         dependencies = "required-after:Forge@[10.12.2.1147,);", guiFactory = "itemrender.ItemRenderGuiFactory")
 public class ItemRenderMod {
 
@@ -57,7 +67,7 @@ public class ItemRenderMod {
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         if (event.getSide().isServer()) {
-            FMLLog.log("Item Render", Level.ERROR, "[Item Render] Item Render is designed for Client. Please delete this mod.");
+            FMLLog.log("Item Render", Level.ERROR, "Item Render is a client-only mod. Please remove this mod and restart your server.");
             return;
         }
         gl32_enabled = GLContext.getCapabilities().OpenGL32;
@@ -75,7 +85,7 @@ public class ItemRenderMod {
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
         if (event.getSide().isServer()) {
-            FMLLog.log("Item Render", Level.ERROR, "[Item Render] Item Render is designed for Client. Please delete this mod.");
+            FMLLog.log("Item Render", Level.ERROR, "Item Render is a client-only mod. Please remove this mod and restart your server.");
             return;
         }
 
