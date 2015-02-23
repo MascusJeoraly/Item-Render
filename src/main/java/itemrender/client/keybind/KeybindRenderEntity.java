@@ -42,7 +42,7 @@ public class KeybindRenderEntity {
     public KeybindRenderEntity(int textureSize, String filename_suffix, int keyVal, String des) {
         fbo = new FBOHelper(textureSize);
         filenameSuffix = filename_suffix;
-        keyValue = keyval;
+        keyValue = keyVal;
         desc = des;
         key = new KeyBinding(desc, keyValue, "Item Render");
         ClientRegistry.registerKeyBinding(key);
