@@ -56,6 +56,9 @@ processResources
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
     }
+    dependencies {
+        compile fileTree(dir: 'libs',includes: ['*.jar'])        
+    }
 }
 
 // add source jar
