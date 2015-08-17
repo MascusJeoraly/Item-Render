@@ -128,4 +128,28 @@ public class Renderer {
         fbo.saveToFile(new File(minecraft.mcDataDir, String.format("rendered/item_%s_%d%s.png", itemStack.getItem().getUnlocalizedName(), itemStack.getItemDamage(), filenameSuffix)));
         fbo.restoreTexture();
     }
+
+    public static String getItemBase64(ItemStack itemStack, FBOHelper fbo, RenderItem itemRenderer) {
+        Minecraft minecraft = FMLClientHandler.instance().getClient();
+        String base64;
+        fbo.begin();
+
+        GL11.glMatrixMode(GL11.GL_PROJECTION);
+        GL11.glPushMatrix();
+        GL11.glLoadIdentity();
+        GL11.glOrtho(0, 16, 0, 16, -150.0, 150.0);
+
+        GL11.glMatrixMode(GL11.GL_MODELVIEW);
+        RenderHelper.enableGUIStandardItemLighting();
+
+        itemRenderer.renderItemIntoGUI(itemStack, 0, 0);
+        GL11.glMatrixMode(GL11.GL_PROJECTION);
+        RenderHelper.disableStandardItemLighting();
+        GL11.glPopMatrix();
+
+        fbo.end();
+        base64 = fbo.getBase64();
+        fbo.restoreTexture();
+        return base64;
+    }
 }

@@ -12,6 +12,7 @@ package itemrender.client.rendering;
 import net.minecraft.client.renderer.GLAllocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.apache.commons.codec.binary.Base64;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
@@ -20,7 +21,9 @@ import org.lwjgl.opengl.GL32;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
 import java.nio.IntBuffer;
 
 @SideOnly(Side.CLIENT)
@@ -126,6 +129,35 @@ public class FBOHelper {
         } catch (Exception e) {
             // Do nothing
         }
+    }
+
+    public String getBase64() {
+        // Bind framebuffer texture
+        GL11.glBindTexture(GL11.GL_TEXTURE_2D, textureID);
+
+        GL11.glPixelStorei(GL11.GL_PACK_ALIGNMENT, 1);
+        GL11.glPixelStorei(GL11.GL_UNPACK_ALIGNMENT, 1);
+
+        int width = GL11.glGetTexLevelParameteri(GL11.GL_TEXTURE_2D, 0, GL11.GL_TEXTURE_WIDTH);
+        int height = GL11.glGetTexLevelParameteri(GL11.GL_TEXTURE_2D, 0, GL11.GL_TEXTURE_HEIGHT);
+
+        IntBuffer texture = BufferUtils.createIntBuffer(width * height);
+        GL11.glGetTexImage(GL11.GL_TEXTURE_2D, 0, GL12.GL_BGRA, GL12.GL_UNSIGNED_INT_8_8_8_8_REV, texture);
+
+        int[] texture_array = new int[width * height];
+        texture.get(texture_array);
+
+        BufferedImage image = new BufferedImage(renderTextureSize, renderTextureSize, BufferedImage.TYPE_INT_ARGB);
+        image.setRGB(0, 0, renderTextureSize, renderTextureSize, texture_array, 0, width);
+
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        try {
+            ImageIO.write(image, "PNG", out);
+        } catch (IOException e) {
+            // Do nothing
+        }
+
+        return Base64.encodeBase64String(out.toByteArray());
     }
 
     private void createFramebuffer() {

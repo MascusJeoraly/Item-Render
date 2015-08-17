@@ -11,6 +11,7 @@ package itemrender.client;
 
 
 import itemrender.client.keybind.KeybindRenderInventoryBlock;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.relauncher.Side;

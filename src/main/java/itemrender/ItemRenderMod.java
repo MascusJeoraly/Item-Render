@@ -11,6 +11,8 @@ package itemrender;
 
 
 import itemrender.client.RenderTickHandler;
+import itemrender.client.export.ExportUtils;
+import itemrender.client.export.ItemList;
 import itemrender.client.keybind.*;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
@@ -93,6 +95,8 @@ public class ItemRenderMod {
         FMLCommonHandler.instance().bus().register(renderTickHandler);
 
         if (gl32_enabled) {
+            ExportUtils.INSTANCE = new ExportUtils();
+
             KeybindRenderInventoryBlock defaultRender = new KeybindRenderInventoryBlock(mainBlockSize, "", Keyboard.KEY_LBRACKET, "Render Block (" + mainBlockSize + ")");
             RenderTickHandler.keybindToRender = defaultRender;
             FMLCommonHandler.instance().bus().register(new KeybindRenderEntity(mainEntitySize, "", Keyboard.KEY_SEMICOLON, "Render Entity (" + mainEntitySize + ")"));
@@ -101,10 +105,17 @@ public class ItemRenderMod {
             FMLCommonHandler.instance().bus().register(new KeybindRenderInventoryBlock(gridBlockSize, "_grid", Keyboard.KEY_RBRACKET, "Render Block (" + gridBlockSize + ")"));
             FMLCommonHandler.instance().bus().register(new KeybindToggleRender());
             FMLCommonHandler.instance().bus().register(new KeybindRenderCurrentPlayer(playerSize));
+            FMLCommonHandler.instance().bus().register(new KeybindExport());
         } else {
             FMLCommonHandler.instance().bus().register(new KeybindWarn());
             FMLLog.log("Item Render", Level.ERROR, "[Item Render] OpenGL Error, please upgrade your drivers or system.");
         }
+    }
+
+    @Mod.EventHandler
+    public void postInit(FMLInitializationEvent event) {
+        if (event.getSide().isClient())
+            ItemList.updateList();
     }
 
     @SubscribeEvent
@@ -112,5 +123,4 @@ public class ItemRenderMod {
         if (event.modID.equals(ItemRenderMod.MODID))
             syncConfig();
     }
-
 }
