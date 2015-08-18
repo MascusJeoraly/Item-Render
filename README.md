@@ -1,20 +1,8 @@
 Item Render
 =================
 
-Minecraft mod to render items as displayed in the inventory to a file.
+Original Author: Kobata  
+Original Project: [https://github.com/Kobata/item-render](https://github.com/Kobata/item-render)
 
-Currently for Minecraft 1.8
-
-Original Author: Kobata
-
-[Original Project](https://github.com/Kobata/item-render)
-
-Status: [![Build Status](https://drone.io/github.com/MeowInnovation/Item-Render/status.png)](https://drone.io/github.com/MeowInnovation/Item-Render/latest)
-
-[[Releases](https://github.com/MeowInnovation/Item-Render/releases)]  [[Project Website](http://meowinnovation.github.io/Item-Render)]
-
-
-Donate:
-
-- Dogecoin: `DNfZ4MxdvTrP3DFWvGXBEMXu9wfUAR3pLh`
-
+Minecraft mod to render items as displayed in the inventory to a file.  
+This version is for Minecraft 1.7.10, if you want the source code of this mod for Minecraft 1.8, please check out the `master` branch.
