@@ -65,9 +65,9 @@ public class ExportUtils {
         return Renderer.getItemBase64(itemStack, fboLarge, itemRenderer);
     }
 
-    private String getItemOwner(ItemStack itemStack) {
+    public String getItemOwner(ItemStack itemStack) {
         GameRegistry.UniqueIdentifier uniqueIdentity = GameRegistry.findUniqueIdentifierFor(itemStack.getItem());
-        return uniqueIdentity == null ? "" : uniqueIdentity.modId;
+        return uniqueIdentity == null ? "unnamed" : uniqueIdentity.modId;
     }
 
     public void exportMods() throws IOException {
@@ -102,7 +102,7 @@ public class ExportUtils {
         File export;
 
         for (String modid : modList) {
-            export = new File(Minecraft.getMinecraft().mcDataDir, String.format("export/%s.json", modid));
+            export = new File(Minecraft.getMinecraft().mcDataDir, String.format("export/%s.json", modid.replaceAll("[^A-Za-z0-9()\\[\\]]", "")));
             if (!export.getParentFile().exists()) export.getParentFile().mkdirs();
             if (!export.exists()) export.createNewFile();
             PrintWriter pw = new PrintWriter(export, "UTF-8");
