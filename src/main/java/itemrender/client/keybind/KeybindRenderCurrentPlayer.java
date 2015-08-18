@@ -10,6 +10,12 @@
 package itemrender.client.keybind;
 
 
+import cpw.mods.fml.client.FMLClientHandler;
+import cpw.mods.fml.client.registry.ClientRegistry;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.InputEvent;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import itemrender.client.rendering.FBOHelper;
 import itemrender.client.rendering.Renderer;
 import net.minecraft.client.Minecraft;
@@ -17,25 +23,12 @@ import net.minecraft.client.gui.GuiChat;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraftforge.fml.client.FMLClientHandler;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.InputEvent;
-import net.minecraftforge.fml.relauncher.ReflectionHelper;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.input.Keyboard;
 
 @SideOnly(Side.CLIENT)
 public class KeybindRenderCurrentPlayer {
 
-    /**
-     * Key descriptions
-     */
     private static final String desc = "Render Current Player";
-    /**
-     * Default key values
-     */
     private static final int keyValues = Keyboard.KEY_P;
     public final KeyBinding key;
     public FBOHelper fbo;
@@ -52,7 +45,7 @@ public class KeybindRenderCurrentPlayer {
             return;
         if (key.isPressed()) {
             Minecraft minecraft = FMLClientHandler.instance().getClient();
-            Entity player = ReflectionHelper.getPrivateValue(Minecraft.class, minecraft, "field_175622_Z", "renderViewEntity");
+            Entity player = minecraft.renderViewEntity;
             if (player != null)
                 Renderer.renderEntity((EntityLivingBase) player, fbo, "", true);
         }

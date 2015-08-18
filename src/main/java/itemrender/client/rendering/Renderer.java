@@ -10,18 +10,23 @@
 
 package itemrender.client.rendering;
 
+import cpw.mods.fml.client.FMLClientHandler;
+import cpw.mods.fml.relauncher.ReflectionHelper;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import itemrender.client.keybind.KeybindRenderEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderItem;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraftforge.fml.client.FMLClientHandler;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.client.ForgeHooksClient;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
@@ -39,7 +44,7 @@ public class Renderer {
         Minecraft minecraft = FMLClientHandler.instance().getClient();
         fbo.begin();
 
-        AxisAlignedBB aabb = entity.getEntityBoundingBox();
+        AxisAlignedBB aabb = entity.boundingBox;
         double minX = aabb.minX - entity.posX;
         double maxX = aabb.maxX - entity.posX;
         double minY = aabb.minY - entity.posY;
@@ -85,8 +90,8 @@ public class Renderer {
         entity.rotationYawHead = entity.rotationYaw;
         entity.prevRotationYawHead = entity.rotationYaw;
         GL11.glTranslated(0.0D, entity.getYOffset(), 0.0D);
-        minecraft.getRenderManager().playerViewY = 180.0F;
-        minecraft.getRenderManager().renderEntityWithPosYaw(entity, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F);
+        RenderManager.instance.playerViewY = 180.0F;
+        RenderManager.instance.renderEntityWithPosYaw(entity, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F);
         entity.renderYawOffset = f2;
         entity.rotationYaw = f3;
         entity.rotationPitch = f4;
@@ -103,7 +108,7 @@ public class Renderer {
         GL11.glPopMatrix();
 
         fbo.end();
-        fbo.saveToFile(new File(minecraft.mcDataDir, renderPlayer ? String.format("rendered/player.png") : String.format("rendered/entity_%s%s.png", EntityList.getEntityString(entity), filenameSuffix)));
+        fbo.saveToFile(new File(minecraft.mcDataDir, renderPlayer ? "rendered/player.png" : String.format("rendered/entity_%s%s.png", EntityList.getEntityString(entity), filenameSuffix)));
         fbo.restoreTexture();
     }
 
@@ -114,18 +119,22 @@ public class Renderer {
         GL11.glMatrixMode(GL11.GL_PROJECTION);
         GL11.glPushMatrix();
         GL11.glLoadIdentity();
-        GL11.glOrtho(0, 16, 0, 16, -150.0, 150.0);
+        GL11.glOrtho(0, 16, 0, 16, -100.0, 100.0);
 
         GL11.glMatrixMode(GL11.GL_MODELVIEW);
         RenderHelper.enableGUIStandardItemLighting();
 
-        itemRenderer.renderItemIntoGUI(itemStack, 0, 0);
+        RenderBlocks renderBlocks = ReflectionHelper.getPrivateValue(Render.class, itemRenderer, "field_147909_c", "renderBlocks");
+        if (!ForgeHooksClient.renderInventoryItem(renderBlocks, minecraft.renderEngine, itemStack, true, 0.0f, (float) 0, (float) 0)) {
+            itemRenderer.renderItemIntoGUI(null, minecraft.renderEngine, itemStack, 0, 0);
+        }
+
         GL11.glMatrixMode(GL11.GL_PROJECTION);
         RenderHelper.disableStandardItemLighting();
         GL11.glPopMatrix();
 
         fbo.end();
-        fbo.saveToFile(new File(minecraft.mcDataDir, String.format("rendered/item_%s_%d%s.png", itemStack.getItem().getUnlocalizedName(), itemStack.getItemDamage(), filenameSuffix)));
+        fbo.saveToFile(new File(minecraft.mcDataDir, String.format("rendered/item_%s_%d%s.png", itemStack.getItem().getUnlocalizedName(), itemStack.getCurrentDurability(), filenameSuffix)));
         fbo.restoreTexture();
     }
 
@@ -142,7 +151,11 @@ public class Renderer {
         GL11.glMatrixMode(GL11.GL_MODELVIEW);
         RenderHelper.enableGUIStandardItemLighting();
 
-        itemRenderer.renderItemIntoGUI(itemStack, 0, 0);
+        RenderBlocks renderBlocks = ReflectionHelper.getPrivateValue(Render.class, itemRenderer, "field_147909_c", "renderBlocks");
+        if (!ForgeHooksClient.renderInventoryItem(renderBlocks, minecraft.renderEngine, itemStack, true, 0.0f, (float) 0, (float) 0)) {
+            itemRenderer.renderItemIntoGUI(null, minecraft.renderEngine, itemStack, 0, 0);
+        }
+
         GL11.glMatrixMode(GL11.GL_PROJECTION);
         RenderHelper.disableStandardItemLighting();
         GL11.glPopMatrix();

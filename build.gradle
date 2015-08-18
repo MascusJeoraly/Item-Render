@@ -33,7 +33,7 @@ minecraft {
     version = config.minecraft_version + "-" + config.forge_version
     runDir = "eclipse"
 
-    mappings = "snapshot_20150715"
+    mappings = 'stable_12'
 	
 	replaceIn "ItemRenderMod.java"
         replace "@VERSION@", config.mod_version

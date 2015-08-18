@@ -12,6 +12,9 @@ package itemrender.client.export;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import itemrender.client.rendering.FBOHelper;
 import itemrender.client.rendering.Renderer;
 import net.minecraft.client.Minecraft;
@@ -19,9 +22,6 @@ import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.resources.Language;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.io.File;
 import java.io.IOException;
@@ -40,7 +40,7 @@ public class ExportUtils {
 
     private FBOHelper fboSmall;
     private FBOHelper fboLarge;
-    private RenderItem itemRenderer = Minecraft.getMinecraft().getRenderItem();
+    private RenderItem itemRenderer = new RenderItem();
     private List<ItemData> itemDataList = new ArrayList<ItemData>();
 
     public ExportUtils() {

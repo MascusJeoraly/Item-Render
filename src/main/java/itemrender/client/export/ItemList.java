@@ -12,14 +12,14 @@ package itemrender.client.export;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.ListMultimap;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.client.resources.model.IBakedModel;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraft.util.IIcon;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -44,19 +44,16 @@ public class ItemList {
 
     private static void damageSearch(Item item, List<ItemStack> permutations) {
         HashSet<String> damageIconSet = new HashSet<String>();
-        for (int damage = 0; damage < 16; damage++)
-            try {
-                ItemStack stack = new ItemStack(item, 1, damage);
-                IBakedModel model = Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(stack);
-                String name = concatenatedDisplayName(stack);
-                String s = name + "@" + (model == null ? 0 : model.hashCode());
-                if (!damageIconSet.contains(s)) {
-                    damageIconSet.add(s);
-                    permutations.add(stack);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
+        for (int damage = 0; damage < 16; damage++) {
+            ItemStack itemstack = new ItemStack(item, 1, damage);
+            IIcon icon = item.getIconIndex(itemstack);
+            String name = concatenatedDisplayName(itemstack);
+            String s = name + "@" + (icon == null ? 0 : icon.hashCode());
+            if (!damageIconSet.contains(s)) {
+                damageIconSet.add(s);
+                permutations.add(itemstack);
             }
+        }
     }
 
     public static String concatenatedDisplayName(ItemStack itemstack) {
@@ -77,10 +74,8 @@ public class ItemList {
     @SuppressWarnings("unchecked")
     public static List<String> itemDisplayNameMultiline(ItemStack itemstack, GuiContainer gui) {
         List<String> nameList = null;
-        try {
-            nameList = itemstack.getTooltip(Minecraft.getMinecraft().thePlayer, false);
-        } catch (Throwable ignored) {
-        }
+
+        nameList = itemstack.getTooltip(Minecraft.getMinecraft().thePlayer, false);
 
         if (nameList == null)
             nameList = new ArrayList<String>();
