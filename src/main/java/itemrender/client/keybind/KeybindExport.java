@@ -18,8 +18,6 @@ import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
-import net.minecraftforge.fml.common.Loader;
-import net.minecraftforge.fml.common.ModContainer;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
 import net.minecraftforge.fml.relauncher.Side;
@@ -50,11 +48,7 @@ public class KeybindExport {
             return;
         if (key.isPressed()) {
             try {
-                ExportUtils.INSTANCE.exportMod("minecraft");
-                ExportUtils.INSTANCE.exportMod("");
-                for (ModContainer mod : Loader.instance().getModList()) {
-                    ExportUtils.INSTANCE.exportMod(mod.getModId().toLowerCase());
-                }
+                ExportUtils.INSTANCE.exportMods();
             } catch (IOException e) {
                 e.printStackTrace();
             }

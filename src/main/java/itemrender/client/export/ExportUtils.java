@@ -11,6 +11,7 @@
 package itemrender.client.export;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import itemrender.client.rendering.FBOHelper;
 import itemrender.client.rendering.Renderer;
 import net.minecraft.client.Minecraft;
@@ -64,35 +65,26 @@ public class ExportUtils {
         return Renderer.getItemBase64(itemStack, fboLarge, itemRenderer);
     }
 
-    public List<ItemStack> getItemList(String modid) {
-        List<ItemStack> list = new ArrayList<ItemStack>();
-        for (ItemStack itemStack : ItemList.items) {
-            GameRegistry.UniqueIdentifier uniqueIdentity = GameRegistry.findUniqueIdentifierFor(itemStack.getItem());
-            String id = uniqueIdentity == null ? "" : uniqueIdentity.modId;
-
-            if (modid.equals(id)) list.add(itemStack);
-        }
-        return list;
+    private String getItemOwner(ItemStack itemStack) {
+        GameRegistry.UniqueIdentifier uniqueIdentity = GameRegistry.findUniqueIdentifierFor(itemStack.getItem());
+        return uniqueIdentity == null ? "" : uniqueIdentity.modId;
     }
 
-    public void exportMod(String modid) throws IOException {
-        List<ItemStack> stackList = getItemList(modid);
-        if (modid.equals("")) modid = "unnamed";
-        File export = new File(Minecraft.getMinecraft().mcDataDir, String.format("export/%s.json", modid));
-        if (!export.getParentFile().exists()) export.getParentFile().mkdirs();
-        if (!export.exists()) export.createNewFile();
+    public void exportMods() throws IOException {
 
         itemDataList.clear();
+        List<String> modList = new ArrayList<String>();
 
-        Gson gson = new Gson();
-        PrintWriter pw = new PrintWriter(export, "UTF-8");
+        Gson gson = new GsonBuilder().disableHtmlEscaping().create();
         ItemData itemData;
-        for (ItemStack itemStack : stackList) {
+        for (ItemStack itemStack : ItemList.items) {
             if (itemStack == null) continue;
             itemData = new ItemData(itemStack);
             itemDataList.add(itemData);
+            if (!modList.contains(getItemOwner(itemStack))) modList.add(getItemOwner(itemStack));
         }
-        // TODO To be optimized
+
+        // Since refreshResources takes a long time, only refresh once for all the items
         Minecraft.getMinecraft().getLanguageManager().setCurrentLanguage(new Language("zh_CN", "中国", "简体中文", false));
         Minecraft.getMinecraft().refreshResources();
 
@@ -105,9 +97,21 @@ public class ExportUtils {
 
         for (ItemData data : itemDataList) {
             data.setEnglishName(this.getLocalizedName(data.getItemStack()));
-            pw.println(gson.toJson(data));
         }
 
-        pw.close();
+        File export;
+
+        for (String modid : modList) {
+            export = new File(Minecraft.getMinecraft().mcDataDir, String.format("export/%s.json", modid));
+            if (!export.getParentFile().exists()) export.getParentFile().mkdirs();
+            if (!export.exists()) export.createNewFile();
+            PrintWriter pw = new PrintWriter(export, "UTF-8");
+
+            for (ItemData data : itemDataList) {
+                if (modid.equals(getItemOwner(data.getItemStack())))
+                    pw.println(gson.toJson(data));
+            }
+            pw.close();
+        }
     }
 }
