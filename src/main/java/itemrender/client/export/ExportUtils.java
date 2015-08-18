@@ -19,6 +19,7 @@ import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.resources.Language;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -67,11 +68,11 @@ public class ExportUtils {
 
     private String getItemOwner(ItemStack itemStack) {
         GameRegistry.UniqueIdentifier uniqueIdentity = GameRegistry.findUniqueIdentifierFor(itemStack.getItem());
-        return uniqueIdentity == null ? "" : uniqueIdentity.modId;
+        return uniqueIdentity == null ? "unnamed" : uniqueIdentity.modId;
     }
 
     public void exportMods() throws IOException {
-
+        Minecraft minecraft = FMLClientHandler.instance().getClient();
         itemDataList.clear();
         List<String> modList = new ArrayList<String>();
 
@@ -85,15 +86,20 @@ public class ExportUtils {
         }
 
         // Since refreshResources takes a long time, only refresh once for all the items
-        Minecraft.getMinecraft().getLanguageManager().setCurrentLanguage(new Language("zh_CN", "中国", "简体中文", false));
-        Minecraft.getMinecraft().refreshResources();
+        minecraft.getLanguageManager().setCurrentLanguage(new Language("zh_CN", "中国", "简体中文", false));
+        minecraft.gameSettings.language = "zh_CN";
+        minecraft.refreshResources();
+        minecraft.gameSettings.saveOptions();
 
         for (ItemData data : itemDataList) {
             data.setName(this.getLocalizedName(data.getItemStack()));
         }
 
-        Minecraft.getMinecraft().getLanguageManager().setCurrentLanguage(new Language("en_US", "US", "English", false));
-        Minecraft.getMinecraft().refreshResources();
+        minecraft.getLanguageManager().setCurrentLanguage(new Language("en_US", "US", "English", false));
+        minecraft.gameSettings.language = "en_US";
+        minecraft.refreshResources();
+        minecraft.fontRendererObj.setUnicodeFlag(false);
+        minecraft.gameSettings.saveOptions();
 
         for (ItemData data : itemDataList) {
             data.setEnglishName(this.getLocalizedName(data.getItemStack()));
@@ -102,7 +108,7 @@ public class ExportUtils {
         File export;
 
         for (String modid : modList) {
-            export = new File(Minecraft.getMinecraft().mcDataDir, String.format("export/%s.json", modid));
+            export = new File(minecraft.mcDataDir, String.format("export/%s.json", modid.replaceAll("[^A-Za-z0-9()\\[\\]]", "")));
             if (!export.getParentFile().exists()) export.getParentFile().mkdirs();
             if (!export.exists()) export.createNewFile();
             PrintWriter pw = new PrintWriter(export, "UTF-8");
