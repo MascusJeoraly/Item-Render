@@ -52,6 +52,7 @@ public class ItemRenderMod {
     public static int mainEntitySize = DEFAULT_MAIN_ENTITY_SIZE;
     public static int gridEntitySize = DEFAULT_GRID_ENTITY_SIZE;
     public static int playerSize = DEFAULT_PLAYER_SIZE;
+    public static float renderScale = 1.0F;
 
     @SideOnly(Side.CLIENT)
     private RenderTickHandler renderTickHandler = new RenderTickHandler();

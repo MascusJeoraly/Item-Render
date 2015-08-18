@@ -14,7 +14,7 @@ import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import itemrender.client.keybind.KeybindRenderEntity;
+import itemrender.ItemRenderMod;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderBlocks;
@@ -42,6 +42,7 @@ public class Renderer {
 
     public static void renderEntity(EntityLivingBase entity, FBOHelper fbo, String filenameSuffix, boolean renderPlayer) {
         Minecraft minecraft = FMLClientHandler.instance().getClient();
+        float scale = ItemRenderMod.renderScale;
         fbo.begin();
 
         AxisAlignedBB aabb = entity.boundingBox;
@@ -68,9 +69,9 @@ public class Renderer {
         GL11.glPushMatrix();
 
         if (renderPlayer)
-            GL11.glScalef((float) (-1), (float) 1, (float) 1);
+            GL11.glScalef(-1f, 1f, 1f);
         else
-            GL11.glScalef(-KeybindRenderEntity.EntityRenderScale, KeybindRenderEntity.EntityRenderScale, KeybindRenderEntity.EntityRenderScale);
+            GL11.glScalef(-scale, scale, scale);
 
         GL11.glRotatef(180.0F, 0.0F, 0.0F, 1.0F);
         float f2 = entity.renderYawOffset;
@@ -114,6 +115,7 @@ public class Renderer {
 
     public static void renderItem(ItemStack itemStack, FBOHelper fbo, String filenameSuffix, RenderItem itemRenderer) {
         Minecraft minecraft = FMLClientHandler.instance().getClient();
+        float scale = ItemRenderMod.renderScale;
         fbo.begin();
 
         GL11.glMatrixMode(GL11.GL_PROJECTION);
@@ -123,6 +125,9 @@ public class Renderer {
 
         GL11.glMatrixMode(GL11.GL_MODELVIEW);
         RenderHelper.enableGUIStandardItemLighting();
+
+        GL11.glTranslatef(8 * (1 - scale), 8 * (1 - scale), 0);
+        GL11.glScalef(scale, scale, scale);
 
         RenderBlocks renderBlocks = ReflectionHelper.getPrivateValue(Render.class, itemRenderer, "field_147909_c", "renderBlocks");
         if (!ForgeHooksClient.renderInventoryItem(renderBlocks, minecraft.renderEngine, itemStack, true, 0.0f, (float) 0, (float) 0)) {
@@ -141,6 +146,7 @@ public class Renderer {
     public static String getItemBase64(ItemStack itemStack, FBOHelper fbo, RenderItem itemRenderer) {
         Minecraft minecraft = FMLClientHandler.instance().getClient();
         String base64;
+        float scale = ItemRenderMod.renderScale;
         fbo.begin();
 
         GL11.glMatrixMode(GL11.GL_PROJECTION);
@@ -150,6 +156,9 @@ public class Renderer {
 
         GL11.glMatrixMode(GL11.GL_MODELVIEW);
         RenderHelper.enableGUIStandardItemLighting();
+
+        GL11.glTranslatef(8 * (1 - scale), 8 * (1 - scale), 0);
+        GL11.glScalef(scale, scale, scale);
 
         RenderBlocks renderBlocks = ReflectionHelper.getPrivateValue(Render.class, itemRenderer, "field_147909_c", "renderBlocks");
         if (!ForgeHooksClient.renderInventoryItem(renderBlocks, minecraft.renderEngine, itemStack, true, 0.0f, (float) 0, (float) 0)) {

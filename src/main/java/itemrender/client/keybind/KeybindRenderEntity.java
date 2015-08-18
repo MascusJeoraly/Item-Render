@@ -26,7 +26,6 @@ import net.minecraft.entity.EntityLivingBase;
 @SideOnly(Side.CLIENT)
 public class KeybindRenderEntity {
 
-    public static float EntityRenderScale = 1.0F;
     public final KeyBinding key;
     /**
      * Key descriptions
