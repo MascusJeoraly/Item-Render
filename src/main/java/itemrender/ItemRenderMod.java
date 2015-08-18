@@ -40,6 +40,7 @@ public class ItemRenderMod {
     public static final int DEFAULT_MAIN_ENTITY_SIZE = 512;
     public static final int DEFAULT_GRID_ENTITY_SIZE = 128;
     public static final int DEFAULT_PLAYER_SIZE = 1024;
+    public static float renderScale = 1.0F;
 
     @Mod.Instance("ItemRender")
     public static ItemRenderMod instance;
