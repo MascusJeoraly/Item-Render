@@ -1,21 +1,16 @@
 buildscript {
     repositories {
-        mavenCentral()
+        jcenter()
         maven {
             name = "forge"
             url = "http://files.minecraftforge.net/maven"
         }
-        maven {
-            name = "sonatype"
-            url = "https://oss.sonatype.org/content/repositories/snapshots/"
-        }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.0-SNAPSHOT'
     }
 }
-
-apply plugin: 'forge'
+apply plugin: 'net.minecraftforge.gradle.forge'
 
 ext.configFile = file "build.properties"
 
@@ -59,12 +54,6 @@ processResources
     dependencies {
         compile fileTree(dir: 'libs',includes: ['*.jar'])        
     }
-}
-
-// add source jar
-task sourceJar(type: Jar) {
-    from sourceSets.main.allSource
-    classifier = 'source'
 }
 
 // deobf jars

@@ -60,7 +60,7 @@ public class ItemList {
     }
 
     public static String concatenatedDisplayName(ItemStack itemstack) {
-        List<String> list = itemDisplayNameMultiline(itemstack, null);
+        List<String> list = itemDisplayNameMultiline(itemstack);
         StringBuilder sb = new StringBuilder();
         boolean first = true;
         for (String name : list) {
@@ -75,7 +75,7 @@ public class ItemList {
     }
 
     @SuppressWarnings("unchecked")
-    public static List<String> itemDisplayNameMultiline(ItemStack itemstack, GuiContainer gui) {
+    public static List<String> itemDisplayNameMultiline(ItemStack itemstack) {
         List<String> nameList = null;
         try {
             nameList = itemstack.getTooltip(Minecraft.getMinecraft().thePlayer, false);
