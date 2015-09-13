@@ -11,6 +11,7 @@ package itemrender;
 
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
+import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
@@ -49,5 +50,16 @@ public class CommandItemRender extends CommandBase {
             }
         } else
             throw new CommandException("/itemrender scale [value]", 0);
+    }
+
+    // I don't know why, but it should works
+    @Override
+    public int compareTo(ICommand command) {
+        return this.getCommandName().compareTo(command.getCommandName());
+    }
+
+    @Override
+    public int compareTo(Object command) {
+        return this.compareTo((ICommand) command);
     }
 }
