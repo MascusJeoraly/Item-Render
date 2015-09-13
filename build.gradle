@@ -23,7 +23,6 @@ configFile.withReader {
 version = config.mod_version
 group= "git.meowinnovation.itemrender" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "ItemRender"
-net.minecraftforge.gradle.util.delayed.TokenReplacer.putReplacement('SRG_DIR', "$net.minecraftforge.gradle.common.Constants.DIR_MCP_MAPPINGS/srgs")
 
 minecraft {
     version = config.minecraft_version + "-" + config.forge_version
