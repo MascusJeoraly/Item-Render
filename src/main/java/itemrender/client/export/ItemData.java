@@ -21,6 +21,8 @@ public class ItemData {
     private String name;
     private String englishName;
     private String type;
+    private int maxStackSize;
+    private int maxDurability;
     private String smallIcon;
     private String largeIcon;
     private transient ItemStack itemStack;
@@ -29,6 +31,8 @@ public class ItemData {
         name = null;
         englishName = null;
         type = ExportUtils.INSTANCE.getType(itemStack);
+        maxStackSize = itemStack.getMaxStackSize();
+        maxDurability = itemStack.getMaxDurability();
         smallIcon = ExportUtils.INSTANCE.getSmallIcon(itemStack);
         largeIcon = ExportUtils.INSTANCE.getLargeIcon(itemStack);
         this.itemStack = itemStack;
