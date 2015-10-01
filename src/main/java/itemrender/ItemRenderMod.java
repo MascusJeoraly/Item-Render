@@ -42,7 +42,7 @@ public class ItemRenderMod {
     public static final int DEFAULT_PLAYER_SIZE = 1024;
     public static float renderScale = 1.0F;
 
-    @Mod.Instance("ItemRender")
+    @Mod.Instance(MODID)
     public static ItemRenderMod instance;
 
     public static Configuration cfg;
