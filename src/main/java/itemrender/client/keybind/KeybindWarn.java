@@ -24,13 +24,7 @@ import org.lwjgl.input.Keyboard;
  */
 @SideOnly(Side.CLIENT)
 public class KeybindWarn {
-
-    private static final String desc = "OpenGL Error";
-    private static final int keyValues = Keyboard.KEY_NONE;
-    public final KeyBinding key;
-
     public KeybindWarn() {
-        key = new KeyBinding(desc, keyValues, "Item Render");
-        ClientRegistry.registerKeyBinding(key);
+        ClientRegistry.registerKeyBinding(new KeyBinding("OpenGL Error", Keyboard.KEY_NONE, "Item Render"));
     }
 }

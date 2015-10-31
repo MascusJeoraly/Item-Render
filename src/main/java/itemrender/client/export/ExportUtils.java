@@ -12,6 +12,7 @@ package itemrender.client.export;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import itemrender.ItemRenderMod;
 import itemrender.client.rendering.FBOHelper;
 import itemrender.client.rendering.Renderer;
 import net.minecraft.client.Minecraft;
@@ -80,6 +81,8 @@ public class ExportUtils {
         ItemData itemData;
         for (ItemStack itemStack : ItemList.items) {
             if (itemStack == null) continue;
+            if (getItemOwner(itemStack).equals("minecraft") && !ItemRenderMod.exportVanillaItems)
+                continue;
             itemData = new ItemData(itemStack);
             itemDataList.add(itemData);
             if (!modList.contains(getItemOwner(itemStack))) modList.add(getItemOwner(itemStack));

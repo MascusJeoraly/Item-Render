@@ -106,7 +106,7 @@ public class Renderer {
         GlStateManager.popMatrix();
 
         fbo.end();
-        fbo.saveToFile(new File(minecraft.mcDataDir, renderPlayer ? String.format("rendered/player.png") : String.format("rendered/entity_%s%s.png", EntityList.getEntityString(entity), filenameSuffix)));
+        fbo.saveToFile(new File(minecraft.mcDataDir, renderPlayer ? "rendered/player.png" : String.format("rendered/entity_%s%s.png", EntityList.getEntityString(entity), filenameSuffix)));
         fbo.restoreTexture();
     }
 

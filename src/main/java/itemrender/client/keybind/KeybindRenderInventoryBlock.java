@@ -28,14 +28,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class KeybindRenderInventoryBlock {
 
     public final KeyBinding key;
-    /**
-     * Key descriptions
-     */
-    private final String desc;
-    /**
-     * Default key values
-     */
-    private final int keyValue;
     public FBOHelper fbo;
     private String filenameSuffix = "";
     private RenderItem itemRenderer = Minecraft.getMinecraft().getRenderItem();
@@ -43,9 +35,7 @@ public class KeybindRenderInventoryBlock {
     public KeybindRenderInventoryBlock(int textureSize, String filename_suffix, int keyVal, String des) {
         fbo = new FBOHelper(textureSize);
         filenameSuffix = filename_suffix;
-        keyValue = keyVal;
-        desc = des;
-        key = new KeyBinding(desc, keyValue, "Item Render");
+        key = new KeyBinding(des, keyVal, "Item Render");
         ClientRegistry.registerKeyBinding(key);
     }
 

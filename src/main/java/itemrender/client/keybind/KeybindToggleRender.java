@@ -24,18 +24,10 @@ import org.lwjgl.input.Keyboard;
 @SideOnly(Side.CLIENT)
 public class KeybindToggleRender {
 
-    /**
-     * Key descriptions
-     */
-    private static final String desc = "Toggle Render";
-    /**
-     * Default key values
-     */
-    private static final int keyValues = Keyboard.KEY_O;
     public final KeyBinding key;
 
     public KeybindToggleRender() {
-        key = new KeyBinding(desc, keyValues, "Item Render");
+        key = new KeyBinding("Toggle Render", Keyboard.KEY_O, "Item Render");
         ClientRegistry.registerKeyBinding(key);
     }
 

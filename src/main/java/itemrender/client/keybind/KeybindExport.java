@@ -12,9 +12,7 @@ package itemrender.client.keybind;
 
 import itemrender.client.export.ExportUtils;
 import itemrender.client.rendering.FBOHelper;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiChat;
-import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
@@ -35,7 +33,6 @@ import java.io.IOException;
 public class KeybindExport {
     public final KeyBinding key;
     public FBOHelper fbo;
-    private RenderItem itemRenderer = Minecraft.getMinecraft().getRenderItem();
 
     public KeybindExport() {
         key = new KeyBinding("Export Mods", Keyboard.KEY_I, "Item Render");

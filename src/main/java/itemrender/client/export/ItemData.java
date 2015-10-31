@@ -18,7 +18,6 @@ import net.minecraft.item.ItemStack;
  * @author Meow J
  */
 public class ItemData {
-    // TODO maxStackSize, maxDurability, and more
     private String name;
     private String englishName;
     private String type;
