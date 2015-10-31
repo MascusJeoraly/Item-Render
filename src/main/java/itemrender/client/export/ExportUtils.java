@@ -82,7 +82,7 @@ public class ExportUtils {
         ItemData itemData;
         for (ItemStack itemStack : ItemList.items) {
             if (itemStack == null) continue;
-            if (getItemOwner(itemStack).equals("minecraft") && !ItemRenderMod.renderVanillaItems)
+            if (getItemOwner(itemStack).equals("minecraft") && !ItemRenderMod.exportVanillaItems)
                 continue;
             itemData = new ItemData(itemStack);
             itemDataList.add(itemData);

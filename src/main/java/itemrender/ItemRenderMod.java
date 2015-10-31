@@ -52,7 +52,7 @@ public class ItemRenderMod {
     public static int mainEntitySize = DEFAULT_MAIN_ENTITY_SIZE;
     public static int gridEntitySize = DEFAULT_GRID_ENTITY_SIZE;
     public static int playerSize = DEFAULT_PLAYER_SIZE;
-    public static boolean renderVanillaItems = false;
+    public static boolean exportVanillaItems = false;
     public static float renderScale = 1.0F;
 
     @SideOnly(Side.CLIENT)
@@ -64,7 +64,7 @@ public class ItemRenderMod {
         mainEntitySize = cfg.get(Configuration.CATEGORY_GENERAL, "RenderEntityMain", DEFAULT_MAIN_ENTITY_SIZE, "Main size of export entity image").getInt();
         gridEntitySize = cfg.get(Configuration.CATEGORY_GENERAL, "RenderEntityGrid", DEFAULT_GRID_ENTITY_SIZE, "Grid size of export entity image").getInt();
         playerSize = cfg.get(Configuration.CATEGORY_GENERAL, "RenderPlayer", DEFAULT_PLAYER_SIZE, "Size of export player image").getInt();
-        renderVanillaItems = cfg.get(Configuration.CATEGORY_GENERAL, "RenderVanillaItems", false, "Render Vanilla Items").getBoolean();
+        exportVanillaItems = cfg.get(Configuration.CATEGORY_GENERAL, "ExportVanillaItems", false, "Export Vanilla Items").getBoolean();
         if (cfg.hasChanged())
             cfg.save();
     }
