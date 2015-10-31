@@ -27,23 +27,13 @@ import net.minecraft.entity.EntityLivingBase;
 public class KeybindRenderEntity {
 
     public final KeyBinding key;
-    /**
-     * Key descriptions
-     */
-    private final String desc;
-    /**
-     * Default key values
-     */
-    private final int keyValue;
     public FBOHelper fbo;
     private String filenameSuffix = "";
 
     public KeybindRenderEntity(int textureSize, String filename_suffix, int keyVal, String des) {
         fbo = new FBOHelper(textureSize);
         filenameSuffix = filename_suffix;
-        keyValue = keyVal;
-        desc = des;
-        key = new KeyBinding(desc, keyValue, "Item Render");
+        key = new KeyBinding(des, keyVal, "Item Render");
         ClientRegistry.registerKeyBinding(key);
     }
 

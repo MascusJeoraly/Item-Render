@@ -28,14 +28,12 @@ import org.lwjgl.input.Keyboard;
 @SideOnly(Side.CLIENT)
 public class KeybindRenderCurrentPlayer {
 
-    private static final String desc = "Render Current Player";
-    private static final int keyValues = Keyboard.KEY_P;
     public final KeyBinding key;
     public FBOHelper fbo;
 
     public KeybindRenderCurrentPlayer(int textureSize) {
         fbo = new FBOHelper(textureSize);
-        key = new KeyBinding(desc, keyValues, "Item Render");
+        key = new KeyBinding("Render Current Player", Keyboard.KEY_P, "Item Render");
         ClientRegistry.registerKeyBinding(key);
     }
 

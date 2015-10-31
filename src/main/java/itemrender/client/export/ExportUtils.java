@@ -16,6 +16,7 @@ import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import itemrender.ItemRenderMod;
 import itemrender.client.rendering.FBOHelper;
 import itemrender.client.rendering.Renderer;
 import net.minecraft.client.Minecraft;
@@ -81,6 +82,8 @@ public class ExportUtils {
         ItemData itemData;
         for (ItemStack itemStack : ItemList.items) {
             if (itemStack == null) continue;
+            if (getItemOwner(itemStack).equals("minecraft") && !ItemRenderMod.renderVanillaItems)
+                continue;
             itemData = new ItemData(itemStack);
             itemDataList.add(itemData);
             if (!modList.contains(getItemOwner(itemStack))) modList.add(getItemOwner(itemStack));

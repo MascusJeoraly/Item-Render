@@ -121,7 +121,7 @@ public class Renderer {
         GL11.glMatrixMode(GL11.GL_PROJECTION);
         GL11.glPushMatrix();
         GL11.glLoadIdentity();
-        GL11.glOrtho(0, 16, 0, 16, -100.0, 100.0);
+        GL11.glOrtho(0, 16, 0, 16, -150.0, 150.0);
 
         GL11.glMatrixMode(GL11.GL_MODELVIEW);
         RenderHelper.enableGUIStandardItemLighting();

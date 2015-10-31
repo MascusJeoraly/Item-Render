@@ -19,7 +19,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 import itemrender.client.export.ExportUtils;
 import itemrender.client.rendering.FBOHelper;
 import net.minecraft.client.gui.GuiChat;
-import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.settings.KeyBinding;
 import org.lwjgl.input.Keyboard;
 
@@ -34,7 +33,6 @@ import java.io.IOException;
 public class KeybindExport {
     public final KeyBinding key;
     public FBOHelper fbo;
-    private RenderItem itemRenderer = new RenderItem();
 
     public KeybindExport() {
         key = new KeyBinding("Export Mods", Keyboard.KEY_I, "Item Render");

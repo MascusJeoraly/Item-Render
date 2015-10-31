@@ -27,7 +27,7 @@ import java.io.IOException;
 import java.nio.IntBuffer;
 
 @SideOnly(Side.CLIENT)
-public class FBOHelper {
+public final class FBOHelper {
     public int renderTextureSize = 128;
     public int framebufferID = -1;
     public int depthbufferID = -1;
