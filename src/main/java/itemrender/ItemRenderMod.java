@@ -30,7 +30,7 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GLContext;
 
 @Mod(modid = ItemRenderMod.MODID, name = "Item Render", version = "@VERSION@",
-        dependencies = "required-after:Forge@[10.12.2.1147,);", guiFactory = "itemrender.ItemRenderGuiFactory")
+        dependencies = "required-after:Forge@[10.12.2.1147,);", guiFactory = "itemrender.ItemRenderGuiFactory", acceptedMinecraftVersions="[1.8,1.8.8]")
 public class ItemRenderMod {
 
     public static final String MODID = "ItemRender";
