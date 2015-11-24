@@ -51,15 +51,4 @@ public class CommandItemRender extends CommandBase {
         } else
             throw new CommandException("/itemrender scale [value]", 0);
     }
-
-    // I don't know why, but it should works
-    @Override
-    public int compareTo(ICommand command) {
-        return this.getCommandName().compareTo(command.getCommandName());
-    }
-
-    @Override
-    public int compareTo(Object command) {
-        return this.compareTo((ICommand) command);
-    }
 }
