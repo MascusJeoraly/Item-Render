@@ -106,7 +106,7 @@ public class Renderer {
         GlStateManager.popMatrix();
 
         fbo.end();
-        fbo.saveToFile(new File(minecraft.mcDataDir, renderPlayer ? "rendered/player.png" : String.format("rendered/entity_%s%s.png", EntityList.getEntityString(entity), filenameSuffix).replaceAll("[^A-Za-z0-9()\\[\\]]", "")));
+        fbo.saveToFile(new File(minecraft.mcDataDir, renderPlayer ? "rendered/player.png" : String.format("rendered/entity_%s%s.png", EntityList.getEntityString(entity).replaceAll("[^A-Za-z0-9()\\[\\]]", ""), filenameSuffix)));
         fbo.restoreTexture();
     }
 
@@ -138,7 +138,7 @@ public class Renderer {
         GL11.glPopMatrix();
 
         fbo.end();
-        fbo.saveToFile(new File(minecraft.mcDataDir, String.format("rendered/item_%s_%d%s.png", itemStack.getItem().getUnlocalizedName(), itemStack.getItemDamage(), filenameSuffix).replaceAll("[^A-Za-z0-9()\\[\\]]", "")));
+        fbo.saveToFile(new File(minecraft.mcDataDir, String.format("rendered/item_%s_%d%s.png", itemStack.getItem().getUnlocalizedName().replaceAll("[^A-Za-z0-9()\\[\\]]", ""), itemStack.getItemDamage(), filenameSuffix)));
         fbo.restoreTexture();
     }
 
