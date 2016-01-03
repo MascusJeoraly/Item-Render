@@ -109,7 +109,8 @@ public class Renderer {
         GL11.glPopMatrix();
 
         fbo.end();
-        fbo.saveToFile(new File(minecraft.mcDataDir, renderPlayer ? "rendered/player.png" : String.format("rendered/entity_%s%s.png", EntityList.getEntityString(entity).replaceAll("[^A-Za-z0-9()\\[\\]]", ""), filenameSuffix)));
+        String name = EntityList.getEntityString(entity) == null ? entity.getCommandSenderName() : EntityList.getEntityString(entity);
+        fbo.saveToFile(new File(minecraft.mcDataDir, renderPlayer ? "rendered/player.png" : String.format("rendered/entity_%s%s.png", name.replaceAll("[^A-Za-z0-9()\\[\\]]", ""), filenameSuffix)));
         fbo.restoreTexture();
     }
 
