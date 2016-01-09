@@ -13,6 +13,7 @@ package itemrender.client.export;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import cpw.mods.fml.client.FMLClientHandler;
+import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -96,6 +97,8 @@ public class ExportUtils {
         minecraft.gameSettings.saveOptions();
 
         for (ItemData data : itemDataList) {
+            if (ItemRenderMod.debugMode)
+                FMLLog.info("Adding Chinese name for " + data.getItemStack().getUnlocalizedName() + "@" + data.getItemStack().getMetadata());
             data.setName(this.getLocalizedName(data.getItemStack()));
         }
 
@@ -106,6 +109,8 @@ public class ExportUtils {
         minecraft.gameSettings.saveOptions();
 
         for (ItemData data : itemDataList) {
+            if (ItemRenderMod.debugMode)
+                FMLLog.info("Adding English name for " + data.getItemStack().getUnlocalizedName() + "@" + data.getItemStack().getMetadata());
             data.setEnglishName(this.getLocalizedName(data.getItemStack()));
         }
 

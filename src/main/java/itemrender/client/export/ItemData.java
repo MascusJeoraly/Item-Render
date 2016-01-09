@@ -10,6 +10,8 @@
 
 package itemrender.client.export;
 
+import cpw.mods.fml.common.FMLLog;
+import itemrender.ItemRenderMod;
 import net.minecraft.item.ItemStack;
 
 /**
@@ -28,6 +30,8 @@ public class ItemData {
     private transient ItemStack itemStack;
 
     public ItemData(ItemStack itemStack) {
+        if (ItemRenderMod.debugMode)
+            FMLLog.info("Processing " + itemStack.getUnlocalizedName() + "@" + itemStack.getMetadata());
         name = null;
         englishName = null;
         type = ExportUtils.INSTANCE.getType(itemStack);

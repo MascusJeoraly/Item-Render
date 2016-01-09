@@ -53,6 +53,7 @@ public class ItemRenderMod {
     public static int gridEntitySize = DEFAULT_GRID_ENTITY_SIZE;
     public static int playerSize = DEFAULT_PLAYER_SIZE;
     public static boolean exportVanillaItems = false;
+    public static boolean debugMode = false;
     public static float renderScale = 1.0F;
 
     @SideOnly(Side.CLIENT)
@@ -65,6 +66,7 @@ public class ItemRenderMod {
         gridEntitySize = cfg.get(Configuration.CATEGORY_GENERAL, "RenderEntityGrid", DEFAULT_GRID_ENTITY_SIZE, "Grid size of export entity image").getInt();
         playerSize = cfg.get(Configuration.CATEGORY_GENERAL, "RenderPlayer", DEFAULT_PLAYER_SIZE, "Size of export player image").getInt();
         exportVanillaItems = cfg.get(Configuration.CATEGORY_GENERAL, "ExportVanillaItems", false, "Export Vanilla Items").getBoolean();
+        debugMode = cfg.get(Configuration.CATEGORY_GENERAL, "DebugMode", false, "Enable debug mode").getBoolean();
         if (cfg.hasChanged())
             cfg.save();
     }
