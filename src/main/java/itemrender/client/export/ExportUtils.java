@@ -80,10 +80,15 @@ public class ExportUtils {
 
         Gson gson = new GsonBuilder().disableHtmlEscaping().create();
         ItemData itemData;
+        String identifier;
+
         for (ItemStack itemStack : ItemList.items) {
             if (itemStack == null) continue;
-            if (getItemOwner(itemStack).equals("minecraft") && !ItemRenderMod.exportVanillaItems)
-                continue;
+            if (getItemOwner(itemStack).equals("minecraft") && !ItemRenderMod.exportVanillaItems) continue;
+
+            identifier = itemStack.getUnlocalizedName() + "@" + itemStack.getMetadata();
+            if (ItemRenderMod.blacklist.contains(identifier)) continue;
+
             itemData = new ItemData(itemStack);
             itemDataList.add(itemData);
             if (!modList.contains(getItemOwner(itemStack))) modList.add(getItemOwner(itemStack));

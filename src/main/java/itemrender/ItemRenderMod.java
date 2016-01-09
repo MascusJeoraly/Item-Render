@@ -29,6 +29,10 @@ import org.apache.logging.log4j.Level;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GLContext;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 @Mod(modid = ItemRenderMod.MODID, name = "Item Render", version = "@VERSION@",
         dependencies = "required-after:Forge@[10.12.2.1147,);", guiFactory = "itemrender.ItemRenderGuiFactory", acceptedMinecraftVersions = "[1.8,1.8.9]")
 public class ItemRenderMod {
@@ -55,6 +59,7 @@ public class ItemRenderMod {
     public static int playerSize = DEFAULT_PLAYER_SIZE;
     public static boolean exportVanillaItems = false;
     public static boolean debugMode = false;
+    public static List<String> blacklist = new ArrayList<String>();
 
     @SideOnly(Side.CLIENT)
     private RenderTickHandler renderTickHandler = new RenderTickHandler();
@@ -67,6 +72,7 @@ public class ItemRenderMod {
         playerSize = cfg.get(Configuration.CATEGORY_GENERAL, "RenderPlayer", DEFAULT_PLAYER_SIZE, "Size of export player image").getInt();
         exportVanillaItems = cfg.get(Configuration.CATEGORY_GENERAL, "ExportVanillaItems", false, "Export Vanilla Items").getBoolean();
         debugMode = cfg.get(Configuration.CATEGORY_GENERAL, "DebugMode", false, "Enable debug mode").getBoolean();
+        blacklist = Arrays.asList(cfg.get(Configuration.CATEGORY_GENERAL, "BlackList", new String[]{}, "Export blacklist. Format: unlocalizedName@metadata").getStringList());
         if (cfg.hasChanged())
             cfg.save();
     }
