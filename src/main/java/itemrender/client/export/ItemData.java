@@ -32,7 +32,7 @@ public class ItemData {
 
     public ItemData(ItemStack itemStack) {
         if (ItemRenderMod.debugMode)
-            FMLLog.info("Processing " + itemStack.getUnlocalizedName() + "@" + itemStack.getMetadata());
+            FMLLog.info("Processing " + itemStack.getItem().getUnlocalizedName() + "@" + itemStack.getMetadata());
         name = null;
         englishName = null;
         type = ExportUtils.INSTANCE.getType(itemStack);

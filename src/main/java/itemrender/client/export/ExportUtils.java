@@ -86,7 +86,7 @@ public class ExportUtils {
             if (itemStack == null) continue;
             if (getItemOwner(itemStack).equals("minecraft") && !ItemRenderMod.exportVanillaItems) continue;
 
-            identifier = itemStack.getUnlocalizedName() + "@" + itemStack.getMetadata();
+            identifier = itemStack.getItem().getUnlocalizedName() + "@" + itemStack.getMetadata();
             if (ItemRenderMod.blacklist.contains(identifier)) continue;
 
             itemData = new ItemData(itemStack);
@@ -102,7 +102,7 @@ public class ExportUtils {
 
         for (ItemData data : itemDataList) {
             if (ItemRenderMod.debugMode)
-                FMLLog.info("Adding Chinese name for " + data.getItemStack().getUnlocalizedName() + "@" + data.getItemStack().getMetadata());
+                FMLLog.info("Adding Chinese name for " + data.getItemStack().getItem().getUnlocalizedName() + "@" + data.getItemStack().getMetadata());
             data.setName(this.getLocalizedName(data.getItemStack()));
         }
 
@@ -114,7 +114,7 @@ public class ExportUtils {
 
         for (ItemData data : itemDataList) {
             if (ItemRenderMod.debugMode)
-                FMLLog.info("Adding English name for " + data.getItemStack().getUnlocalizedName() + "@" + data.getItemStack().getMetadata());
+                FMLLog.info("Adding English name for " + data.getItemStack().getItem().getUnlocalizedName() + "@" + data.getItemStack().getMetadata());
             data.setEnglishName(this.getLocalizedName(data.getItemStack()));
         }
 
