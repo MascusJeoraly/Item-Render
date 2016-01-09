@@ -21,6 +21,7 @@ import net.minecraft.client.resources.Language;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.client.FMLClientHandler;
+import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -95,6 +96,8 @@ public class ExportUtils {
         minecraft.gameSettings.saveOptions();
 
         for (ItemData data : itemDataList) {
+            if (ItemRenderMod.debugMode)
+                FMLLog.info("Adding Chinese name for " + data.getItemStack().getUnlocalizedName() + "@" + data.getItemStack().getMetadata());
             data.setName(this.getLocalizedName(data.getItemStack()));
         }
 
@@ -105,6 +108,8 @@ public class ExportUtils {
         minecraft.gameSettings.saveOptions();
 
         for (ItemData data : itemDataList) {
+            if (ItemRenderMod.debugMode)
+                FMLLog.info("Adding English name for " + data.getItemStack().getUnlocalizedName() + "@" + data.getItemStack().getMetadata());
             data.setEnglishName(this.getLocalizedName(data.getItemStack()));
         }
 

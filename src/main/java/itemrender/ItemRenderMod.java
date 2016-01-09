@@ -30,7 +30,7 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GLContext;
 
 @Mod(modid = ItemRenderMod.MODID, name = "Item Render", version = "@VERSION@",
-        dependencies = "required-after:Forge@[10.12.2.1147,);", guiFactory = "itemrender.ItemRenderGuiFactory", acceptedMinecraftVersions="[1.8,1.8.9]")
+        dependencies = "required-after:Forge@[10.12.2.1147,);", guiFactory = "itemrender.ItemRenderGuiFactory", acceptedMinecraftVersions = "[1.8,1.8.9]")
 public class ItemRenderMod {
 
     public static final String MODID = "ItemRender";
@@ -54,6 +54,7 @@ public class ItemRenderMod {
     public static int gridEntitySize = DEFAULT_GRID_ENTITY_SIZE;
     public static int playerSize = DEFAULT_PLAYER_SIZE;
     public static boolean exportVanillaItems = false;
+    public static boolean debugMode = false;
 
     @SideOnly(Side.CLIENT)
     private RenderTickHandler renderTickHandler = new RenderTickHandler();
@@ -65,6 +66,7 @@ public class ItemRenderMod {
         gridEntitySize = cfg.get(Configuration.CATEGORY_GENERAL, "RenderEntityGrid", DEFAULT_GRID_ENTITY_SIZE, "Grid size of export entity image").getInt();
         playerSize = cfg.get(Configuration.CATEGORY_GENERAL, "RenderPlayer", DEFAULT_PLAYER_SIZE, "Size of export player image").getInt();
         exportVanillaItems = cfg.get(Configuration.CATEGORY_GENERAL, "ExportVanillaItems", false, "Export Vanilla Items").getBoolean();
+        debugMode = cfg.get(Configuration.CATEGORY_GENERAL, "DebugMode", false, "Enable debug mode").getBoolean();
         if (cfg.hasChanged())
             cfg.save();
     }
