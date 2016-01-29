@@ -36,7 +36,7 @@ public class ItemData {
         englishName = null;
         type = ExportUtils.INSTANCE.getType(itemStack);
         maxStackSize = itemStack.getMaxStackSize();
-        maxDurability = itemStack.getMaxDurability();
+        maxDurability = itemStack.getMaxDurability() + 1;
         smallIcon = ExportUtils.INSTANCE.getSmallIcon(itemStack);
         largeIcon = ExportUtils.INSTANCE.getLargeIcon(itemStack);
         this.itemStack = itemStack;
