@@ -36,7 +36,7 @@ public class ItemData {
             FMLLog.info("Processing " + itemStack.getItem().getUnlocalizedName() + "@" + itemStack.getMetadata());
         name = null;
         englishName = null;
-        unlocalizedName = itemStack.getUnlocalizedName();
+        unlocalizedName = itemStack.getUnlocalizedName() + ".name";
         type = ExportUtils.INSTANCE.getType(itemStack);
         maxStackSize = itemStack.getMaxStackSize();
         maxDurability = itemStack.getMaxDamage() + 1;
