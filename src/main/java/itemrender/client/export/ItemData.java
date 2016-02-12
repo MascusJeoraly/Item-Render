@@ -22,6 +22,7 @@ import net.minecraftforge.fml.common.FMLLog;
 public class ItemData {
     private String name;
     private String englishName;
+    private String unlocalizedName;
     private String type;
     private int maxStackSize;
     private int maxDurability;
@@ -35,6 +36,7 @@ public class ItemData {
             FMLLog.info("Processing " + itemStack.getItem().getUnlocalizedName() + "@" + itemStack.getMetadata());
         name = null;
         englishName = null;
+        unlocalizedName = itemStack.getUnlocalizedName();
         type = ExportUtils.INSTANCE.getType(itemStack);
         maxStackSize = itemStack.getMaxStackSize();
         maxDurability = itemStack.getMaxDamage() + 1;
