@@ -16,7 +16,7 @@ import itemrender.ItemRenderMod;
 import itemrender.client.rendering.FBOHelper;
 import itemrender.client.rendering.Renderer;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.entity.RenderItem;
+import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.client.resources.Language;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;

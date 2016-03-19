@@ -15,11 +15,11 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.entity.RenderItem;
+import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -89,7 +89,7 @@ public class Renderer {
         entity.prevRotationYawHead = entity.rotationYaw;
         GlStateManager.translate(0.0D, entity.getYOffset(), 0.0D);
         minecraft.getRenderManager().playerViewY = 180.0F;
-        minecraft.getRenderManager().renderEntityWithPosYaw(entity, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F);
+        minecraft.getRenderManager().doRenderEntity(entity, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F, true);
         entity.renderYawOffset = f2;
         entity.rotationYaw = f3;
         entity.rotationPitch = f4;
@@ -106,7 +106,7 @@ public class Renderer {
         GlStateManager.popMatrix();
 
         fbo.end();
-        String name = EntityList.getEntityString(entity) == null ? entity.getCommandSenderName() : EntityList.getEntityString(entity);
+        String name = EntityList.getEntityString(entity) == null ? entity.getName() : EntityList.getEntityString(entity);
         fbo.saveToFile(new File(minecraft.mcDataDir, renderPlayer ? "rendered/player.png" : String.format("rendered/entity_%s%s.png", name.replaceAll("[^A-Za-z0-9()\\[\\]]", ""), filenameSuffix)));
         fbo.restoreTexture();
     }

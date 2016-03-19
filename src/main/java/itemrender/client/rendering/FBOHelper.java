@@ -72,14 +72,14 @@ public class FBOHelper {
         GlStateManager.clearColor(0, 0, 0, 0);
         GlStateManager.clear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
 
-        GlStateManager.cullFace(GL11.GL_FRONT);
+        GlStateManager.cullFace(GlStateManager.CullFace.FRONT);
         GlStateManager.enableDepth();
         GlStateManager.enableLighting();
         GlStateManager.enableRescaleNormal();
     }
 
     public void end() {
-        GlStateManager.cullFace(GL11.GL_BACK);
+        GlStateManager.cullFace(GlStateManager.CullFace.FRONT);
         GlStateManager.disableDepth();
         GlStateManager.disableRescaleNormal();
         GlStateManager.disableLighting();

@@ -14,7 +14,7 @@ import itemrender.client.rendering.FBOHelper;
 import itemrender.client.rendering.Renderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiChat;
-import net.minecraft.client.renderer.entity.RenderItem;
+import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.client.FMLClientHandler;
@@ -46,7 +46,7 @@ public class KeybindRenderInventoryBlock {
         if (key.isPressed()) {
             Minecraft minecraft = FMLClientHandler.instance().getClient();
             if (minecraft.thePlayer != null) {
-                ItemStack current = minecraft.thePlayer.getCurrentEquippedItem();
+                ItemStack current = minecraft.thePlayer.getHeldItemMainhand();
                 if (current != null && current.getItem() != null) {
                     Renderer.renderItem(current, fbo, filenameSuffix, itemRenderer);
                 }

@@ -13,10 +13,10 @@ package itemrender.client.export;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.ListMultimap;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.model.IBakedModel;
+import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -70,7 +70,7 @@ public class ItemList {
             }
             sb.append(name);
         }
-        return EnumChatFormatting.getTextWithoutFormattingCodes(sb.toString());
+        return TextFormatting.getTextWithoutFormattingCodes(sb.toString());
     }
 
     @SuppressWarnings("unchecked")

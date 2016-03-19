@@ -14,6 +14,7 @@ import itemrender.client.RenderTickHandler;
 import itemrender.client.export.ExportUtils;
 import itemrender.client.export.ItemList;
 import itemrender.client.keybind.*;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.FMLCommonHandler;
@@ -34,7 +35,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Mod(modid = ItemRenderMod.MODID, name = "Item Render", version = "@VERSION@",
-        dependencies = "required-after:Forge@[10.12.2.1147,);", guiFactory = "itemrender.ItemRenderGuiFactory", acceptedMinecraftVersions = "[1.8,1.8.9]")
+        dependencies = "required-after:Forge@[10.12.2.1147,);", guiFactory = "itemrender.ItemRenderGuiFactory", acceptedMinecraftVersions = "[1.9]")
 public class ItemRenderMod {
 
     public static final String MODID = "ItemRender";
@@ -102,23 +103,23 @@ public class ItemRenderMod {
             return;
         }
 
-        FMLCommonHandler.instance().bus().register(instance);
-        FMLCommonHandler.instance().bus().register(renderTickHandler);
+        MinecraftForge.EVENT_BUS.register(instance);
+        MinecraftForge.EVENT_BUS.register(renderTickHandler);
 
         if (gl32_enabled) {
             ExportUtils.INSTANCE = new ExportUtils();
 
             KeybindRenderInventoryBlock defaultRender = new KeybindRenderInventoryBlock(mainBlockSize, "", Keyboard.KEY_LBRACKET, "Render Block (" + mainBlockSize + ")");
             RenderTickHandler.keybindToRender = defaultRender;
-            FMLCommonHandler.instance().bus().register(new KeybindRenderEntity(mainEntitySize, "", Keyboard.KEY_SEMICOLON, "Render Entity (" + mainEntitySize + ")"));
-            FMLCommonHandler.instance().bus().register(new KeybindRenderEntity(gridEntitySize, "_grid", Keyboard.KEY_APOSTROPHE, "Render Entity (" + gridEntitySize + ")"));
-            FMLCommonHandler.instance().bus().register(defaultRender);
-            FMLCommonHandler.instance().bus().register(new KeybindRenderInventoryBlock(gridBlockSize, "_grid", Keyboard.KEY_RBRACKET, "Render Block (" + gridBlockSize + ")"));
-            FMLCommonHandler.instance().bus().register(new KeybindToggleRender());
-            FMLCommonHandler.instance().bus().register(new KeybindRenderCurrentPlayer(playerSize));
-            FMLCommonHandler.instance().bus().register(new KeybindExport());
+            MinecraftForge.EVENT_BUS.register(new KeybindRenderEntity(mainEntitySize, "", Keyboard.KEY_SEMICOLON, "Render Entity (" + mainEntitySize + ")"));
+            MinecraftForge.EVENT_BUS.register(new KeybindRenderEntity(gridEntitySize, "_grid", Keyboard.KEY_APOSTROPHE, "Render Entity (" + gridEntitySize + ")"));
+            MinecraftForge.EVENT_BUS.register(defaultRender);
+            MinecraftForge.EVENT_BUS.register(new KeybindRenderInventoryBlock(gridBlockSize, "_grid", Keyboard.KEY_RBRACKET, "Render Block (" + gridBlockSize + ")"));
+            MinecraftForge.EVENT_BUS.register(new KeybindToggleRender());
+            MinecraftForge.EVENT_BUS.register(new KeybindRenderCurrentPlayer(playerSize));
+            MinecraftForge.EVENT_BUS.register(new KeybindExport());
         } else {
-            FMLCommonHandler.instance().bus().register(new KeybindWarn());
+            MinecraftForge.EVENT_BUS.register(new KeybindWarn());
             FMLLog.log("Item Render", Level.ERROR, "[Item Render] OpenGL Error, please upgrade your drivers or system.");
         }
     }
