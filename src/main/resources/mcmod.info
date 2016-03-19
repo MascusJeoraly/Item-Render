@@ -2,7 +2,7 @@
 {
   "modid": "ItemRender",
   "name": "Item Render",
-  "description": "Item Render 1.8.x Edition",
+  "description": "Item Render 1.9 Edition",
   "version": "${version}",
   "mcversion": "${mcversion}",
   "url": "https://github.com/MeowInnovation/Item-Render",
