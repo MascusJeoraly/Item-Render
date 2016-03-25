@@ -5,10 +5,10 @@
   "description": "Item Render 1.9 Edition",
   "version": "${version}",
   "mcversion": "${mcversion}",
-  "url": "https://github.com/MeowInnovation/Item-Render",
+  "url": "https://github.com/MascusJeoraly/Item-Render",
   "updateUrl": "",
   "authorList": ["Meow J", "Kobata"],
-  "credits": "Meow Innovation",
+  "credits": "Mascus Jeoraly",
   "logoFile": "",
   "screenshots": [],
   "dependencies": []
