@@ -69,8 +69,8 @@ public class ExportUtils {
     }
 
     private String getItemOwner(ItemStack itemStack) {
-        GameRegistry.UniqueIdentifier uniqueIdentity = GameRegistry.findUniqueIdentifierFor(itemStack.getItem());
-        return uniqueIdentity == null ? "unnamed" : uniqueIdentity.modId;
+        ResourceLocation registryName = itemStack.getItem().getRegistryName();
+        return registryName == null ? "unnamed" : registryName.getResourceDomain();
     }
 
     public void exportMods() throws IOException {

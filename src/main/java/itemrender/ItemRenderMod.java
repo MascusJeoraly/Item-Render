@@ -132,7 +132,7 @@ public class ItemRenderMod {
 
     @SubscribeEvent
     public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event) {
-        if (event.modID.equals(ItemRenderMod.MODID))
+        if (event.getModID().equals(ItemRenderMod.MODID))
             syncConfig();
     }
 }

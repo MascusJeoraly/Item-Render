@@ -103,7 +103,7 @@ public class ItemList {
         LinkedList<ItemStack> permutations = new LinkedList<ItemStack>();
         ListMultimap<Item, ItemStack> itemMap = ArrayListMultimap.create();
 
-        for (Item item : (Iterable<Item>) Item.itemRegistry) {
+        for (Item item : (Iterable<Item>) Item.REGISTRY) {
 
             if (item == null)
                 continue;
