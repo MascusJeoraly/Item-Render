@@ -11,8 +11,6 @@ package itemrender.client.keybind;
 
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.input.Keyboard;
 
 /**
@@ -22,7 +20,6 @@ import org.lwjgl.input.Keyboard;
  *
  * @author Meow J
  */
-@SideOnly(Side.CLIENT)
 public class KeybindWarn {
     public KeybindWarn() {
         ClientRegistry.registerKeyBinding(new KeyBinding("OpenGL Error", Keyboard.KEY_NONE, "Item Render"));

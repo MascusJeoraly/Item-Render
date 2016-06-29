@@ -17,7 +17,6 @@ import itemrender.client.keybind.*;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -27,6 +26,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.Logger;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GLContext;
 
@@ -61,6 +61,7 @@ public class ItemRenderMod {
     public static boolean exportVanillaItems = false;
     public static boolean debugMode = false;
     public static List<String> blacklist = new ArrayList<String>();
+    public Logger log;
 
     @SideOnly(Side.CLIENT)
     private RenderTickHandler renderTickHandler = new RenderTickHandler();
@@ -80,6 +81,7 @@ public class ItemRenderMod {
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
+        log = event.getModLog();
         if (event.getSide().isServer()) {
             FMLLog.log("Item Render", Level.ERROR, "Item Render is a client-only mod. Please remove this mod and restart your server.");
             return;

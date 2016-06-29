@@ -16,13 +16,12 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.RenderItem;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.fml.client.FMLClientHandler;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 
 import java.io.File;
@@ -32,7 +31,6 @@ import java.io.File;
  *
  * @author Meow J
  */
-@SideOnly(Side.CLIENT)
 public class Renderer {
 
     public static void renderEntity(EntityLivingBase entity, FBOHelper fbo, String filenameSuffix, boolean renderPlayer) {
@@ -63,6 +61,7 @@ public class Renderer {
         // Render entity
         GlStateManager.enableColorMaterial();
         GlStateManager.pushMatrix();
+        GlStateManager.translate(0, 0, 50.0F);
 
         if (renderPlayer)
             GlStateManager.scale(-1F, 1F, 1F);
@@ -87,9 +86,12 @@ public class Renderer {
         entity.rotationPitch = -((float) Math.atan((double) (1 / 40.0F))) * 20.0F;
         entity.rotationYawHead = entity.rotationYaw;
         entity.prevRotationYawHead = entity.rotationYaw;
-        GlStateManager.translate(0.0D, entity.getYOffset(), 0.0D);
-        minecraft.getRenderManager().playerViewY = 180.0F;
-        minecraft.getRenderManager().doRenderEntity(entity, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F, true);
+        GlStateManager.translate(0.0F, 0.0F, 0.0F);
+        RenderManager rendermanager = Minecraft.getMinecraft().getRenderManager();
+        rendermanager.setPlayerViewY(180.0F);
+        rendermanager.setRenderShadow(false);
+        rendermanager.doRenderEntity(entity, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F, true);
+        rendermanager.setRenderShadow(true);
         entity.renderYawOffset = f2;
         entity.rotationYaw = f3;
         entity.rotationPitch = f4;
@@ -98,9 +100,9 @@ public class Renderer {
         GlStateManager.popMatrix();
         RenderHelper.disableStandardItemLighting();
         GlStateManager.disableRescaleNormal();
-        OpenGlHelper.setActiveTexture(OpenGlHelper.lightmapTexUnit);
+        GlStateManager.setActiveTexture(OpenGlHelper.lightmapTexUnit);
         GlStateManager.disableTexture2D();
-        OpenGlHelper.setActiveTexture(OpenGlHelper.defaultTexUnit);
+        GlStateManager.setActiveTexture(OpenGlHelper.defaultTexUnit);
 
         GlStateManager.matrixMode(GL11.GL_PROJECTION);
         GlStateManager.popMatrix();
