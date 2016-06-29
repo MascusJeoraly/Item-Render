@@ -12,7 +12,6 @@ package itemrender;
 
 import cpw.mods.fml.client.event.ConfigChangedEvent;
 import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -25,7 +24,7 @@ import itemrender.client.export.ExportUtils;
 import itemrender.client.export.ItemList;
 import itemrender.client.keybind.*;
 import net.minecraftforge.common.config.Configuration;
-import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.Logger;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GLContext;
 
@@ -60,6 +59,7 @@ public class ItemRenderMod {
     public static boolean debugMode = false;
     public static List<String> blacklist = new ArrayList<String>();
     public static float renderScale = 1.0F;
+    public Logger log;
 
     @SideOnly(Side.CLIENT)
     private RenderTickHandler renderTickHandler = new RenderTickHandler();
@@ -79,8 +79,9 @@ public class ItemRenderMod {
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
+        log = event.getModLog();
         if (event.getSide().isServer()) {
-            FMLLog.log("Item Render", Level.ERROR, "Item Render is a client-only mod. Please remove this mod and restart your server.");
+            log.error("Item Render is a client-only mod. Please remove this mod and restart your server.");
             return;
         }
         gl32_enabled = GLContext.getCapabilities().OpenGL32;
@@ -98,7 +99,7 @@ public class ItemRenderMod {
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
         if (event.getSide().isServer()) {
-            FMLLog.log("Item Render", Level.ERROR, "Item Render is a client-only mod. Please remove this mod and restart your server.");
+            log.error("Item Render is a client-only mod. Please remove this mod and restart your server.");
             return;
         }
 
@@ -119,7 +120,7 @@ public class ItemRenderMod {
             FMLCommonHandler.instance().bus().register(new KeybindExport());
         } else {
             FMLCommonHandler.instance().bus().register(new KeybindWarn());
-            FMLLog.log("Item Render", Level.ERROR, "[Item Render] OpenGL Error, please upgrade your drivers or system.");
+            log.error("[Item Render] OpenGL Error, please upgrade your drivers or system.");
         }
     }
 

@@ -12,8 +12,6 @@ package itemrender.client.rendering;
 
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.relauncher.ReflectionHelper;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import itemrender.ItemRenderMod;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -37,7 +35,6 @@ import java.io.File;
  *
  * @author Meow J
  */
-@SideOnly(Side.CLIENT)
 public class Renderer {
 
     public static void renderEntity(EntityLivingBase entity, FBOHelper fbo, String filenameSuffix, boolean renderPlayer) {
@@ -67,6 +64,7 @@ public class Renderer {
 
         GL11.glEnable(GL11.GL_COLOR_MATERIAL);
         GL11.glPushMatrix();
+		GL11.glTranslatef(0, 0, 50.0F)
 
         if (renderPlayer)
             GL11.glScalef(-1f, 1f, 1f);
@@ -90,10 +88,10 @@ public class Renderer {
         entity.rotationPitch = -((float) Math.atan((double) (1 / 40.0F))) * 20.0F;
         entity.rotationYawHead = entity.rotationYaw;
         entity.prevRotationYawHead = entity.rotationYaw;
-        GL11.glTranslated(0.0D, entity.getYOffset(), 0.0D);
+        GL11.glTranslatef(0.0F, 0.0F, 0.0F);
         RenderManager.instance.playerViewY = 180.0F;
-        RenderManager.instance.renderEntityWithPosYaw(entity, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F);
-        entity.renderYawOffset = f2;
+        RenderManager.instance.doRenderEntity(entity, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F, true);
+		entity.renderYawOffset = f2;
         entity.rotationYaw = f3;
         entity.rotationPitch = f4;
         entity.prevRotationYawHead = f5;

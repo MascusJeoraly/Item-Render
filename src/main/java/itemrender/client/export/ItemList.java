@@ -12,8 +12,6 @@ package itemrender.client.export;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.ListMultimap;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.item.Item;
@@ -31,7 +29,6 @@ import java.util.List;
  *
  * @author Chickenbones
  */
-@SideOnly(Side.CLIENT)
 public class ItemList {
     /**
      * Fields are replaced atomically and contents never modified.

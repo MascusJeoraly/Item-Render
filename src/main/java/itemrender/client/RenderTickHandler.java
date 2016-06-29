@@ -12,12 +12,9 @@ package itemrender.client;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import itemrender.client.keybind.KeybindRenderInventoryBlock;
 import org.lwjgl.opengl.GL11;
 
-@SideOnly(Side.CLIENT)
 public class RenderTickHandler {
     public static boolean renderPreview = false;
     public static KeybindRenderInventoryBlock keybindToRender;

@@ -14,8 +14,6 @@ import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.InputEvent;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import itemrender.client.export.ExportUtils;
 import itemrender.client.rendering.FBOHelper;
 import net.minecraft.client.gui.GuiChat;
@@ -29,7 +27,6 @@ import java.io.IOException;
  *
  * @author Meow J
  */
-@SideOnly(Side.CLIENT)
 public class KeybindExport {
     public final KeyBinding key;
     public FBOHelper fbo;
