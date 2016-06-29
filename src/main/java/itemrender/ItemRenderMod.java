@@ -35,7 +35,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Mod(modid = ItemRenderMod.MODID, name = "Item Render", version = "@VERSION@",
-        dependencies = "required-after:Forge@[10.12.2.1147,);", guiFactory = "itemrender.ItemRenderGuiFactory", acceptedMinecraftVersions = "[1.9, 1.10]")
+        dependencies = "required-after:Forge@[10.12.2.1147,);", guiFactory = "itemrender.ItemRenderGuiFactory", acceptedMinecraftVersions = "[1.9, 1.10.2]")
 public class ItemRenderMod {
 
     public static final String MODID = "ItemRender";
