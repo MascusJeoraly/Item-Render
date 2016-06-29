@@ -14,11 +14,8 @@ import itemrender.client.keybind.KeybindRenderInventoryBlock;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 
-@SideOnly(Side.CLIENT)
 public class RenderTickHandler {
     public static boolean renderPreview = false;
     public static KeybindRenderInventoryBlock keybindToRender;

@@ -17,8 +17,6 @@ import net.minecraft.client.resources.model.IBakedModel;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -30,7 +28,6 @@ import java.util.List;
  *
  * @author Chickenbones
  */
-@SideOnly(Side.CLIENT)
 public class ItemList {
     /**
      * Fields are replaced atomically and contents never modified.

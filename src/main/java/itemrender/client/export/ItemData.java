@@ -12,7 +12,6 @@ package itemrender.client.export;
 
 import itemrender.ItemRenderMod;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.common.FMLLog;
 
 /**
  * Created by Meow J on 8/17/2015.
@@ -33,7 +32,7 @@ public class ItemData {
 
     public ItemData(ItemStack itemStack) {
         if (ItemRenderMod.debugMode)
-            FMLLog.info("Processing " + itemStack.getItem().getUnlocalizedName() + "@" + itemStack.getMetadata());
+            ItemRenderMod.instance.log.info("Processing " + itemStack.getItem().getUnlocalizedName() + "@" + itemStack.getMetadata());
         name = null;
         englishName = null;
         unlocalizedName = itemStack.getUnlocalizedName() + ".name";
