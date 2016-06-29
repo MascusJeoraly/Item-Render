@@ -83,7 +83,7 @@ public final class FBOHelper {
     public void end() {
         checkGlErrors("FBO End Init");
 
-        GlStateManager.cullFace(GlStateManager.CullFace.FRONT);
+        GlStateManager.cullFace(GlStateManager.CullFace.BACK);
         GlStateManager.disableDepth();
         GlStateManager.disableRescaleNormal();
         GlStateManager.disableLighting();
