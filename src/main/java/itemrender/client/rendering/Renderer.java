@@ -64,7 +64,7 @@ public class Renderer {
 
         GL11.glEnable(GL11.GL_COLOR_MATERIAL);
         GL11.glPushMatrix();
-		GL11.glTranslatef(0, 0, 50.0F);
+        GL11.glTranslatef(0, 0, 50.0F);
 
         if (renderPlayer)
             GL11.glScalef(-1f, 1f, 1f);
@@ -91,7 +91,7 @@ public class Renderer {
         GL11.glTranslatef(0.0F, 0.0F, 0.0F);
         RenderManager.instance.playerViewY = 180.0F;
         RenderManager.instance.doRenderEntity(entity, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F, true);
-		entity.renderYawOffset = f2;
+        entity.renderYawOffset = f2;
         entity.rotationYaw = f3;
         entity.rotationPitch = f4;
         entity.prevRotationYawHead = f5;
