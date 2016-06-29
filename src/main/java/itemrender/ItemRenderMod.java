@@ -100,7 +100,7 @@ public class ItemRenderMod {
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
         if (event.getSide().isServer()) {
-            FMLLog.log("Item Render", Level.ERROR, "Item Render is a client-only mod. Please remove this mod and restart your server.");
+            log.error("Item Render is a client-only mod. Please remove this mod and restart your server.");
             return;
         }
 
