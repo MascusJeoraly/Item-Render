@@ -64,7 +64,7 @@ public class Renderer {
 
         GL11.glEnable(GL11.GL_COLOR_MATERIAL);
         GL11.glPushMatrix();
-		GL11.glTranslatef(0, 0, 50.0F)
+		GL11.glTranslatef(0, 0, 50.0F);
 
         if (renderPlayer)
             GL11.glScalef(-1f, 1f, 1f);
