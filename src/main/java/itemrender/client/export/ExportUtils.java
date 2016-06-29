@@ -22,7 +22,6 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.FMLClientHandler;
-import net.minecraftforge.fml.common.FMLLog;
 
 import java.io.File;
 import java.io.IOException;
@@ -99,7 +98,7 @@ public class ExportUtils {
 
         for (ItemData data : itemDataList) {
             if (ItemRenderMod.debugMode)
-                FMLLog.info("Adding Chinese name for " + data.getItemStack().getItem().getUnlocalizedName() + "@" + data.getItemStack().getMetadata());
+                ItemRenderMod.instance.log.info("Adding Chinese name for " + data.getItemStack().getItem().getUnlocalizedName() + "@" + data.getItemStack().getMetadata());
             data.setName(this.getLocalizedName(data.getItemStack()));
         }
 
@@ -111,7 +110,7 @@ public class ExportUtils {
 
         for (ItemData data : itemDataList) {
             if (ItemRenderMod.debugMode)
-                FMLLog.info("Adding English name for " + data.getItemStack().getItem().getUnlocalizedName() + "@" + data.getItemStack().getMetadata());
+                ItemRenderMod.instance.log.info("Adding English name for " + data.getItemStack().getItem().getUnlocalizedName() + "@" + data.getItemStack().getMetadata());
             data.setEnglishName(this.getLocalizedName(data.getItemStack()));
         }
 

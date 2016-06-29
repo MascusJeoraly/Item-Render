@@ -17,7 +17,6 @@ import itemrender.client.keybind.*;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
-import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -25,7 +24,6 @@ import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GLContext;
@@ -83,7 +81,7 @@ public class ItemRenderMod {
     public void preInit(FMLPreInitializationEvent event) {
         log = event.getModLog();
         if (event.getSide().isServer()) {
-            FMLLog.log("Item Render", Level.ERROR, "Item Render is a client-only mod. Please remove this mod and restart your server.");
+            log.error("Item Render is a client-only mod. Please remove this mod and restart your server.");
             return;
         }
         gl32_enabled = GLContext.getCapabilities().OpenGL32;
@@ -101,7 +99,7 @@ public class ItemRenderMod {
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
         if (event.getSide().isServer()) {
-            FMLLog.log("Item Render", Level.ERROR, "Item Render is a client-only mod. Please remove this mod and restart your server.");
+            log.error("Item Render is a client-only mod. Please remove this mod and restart your server.");
             return;
         }
 
@@ -122,7 +120,7 @@ public class ItemRenderMod {
             MinecraftForge.EVENT_BUS.register(new KeybindExport());
         } else {
             MinecraftForge.EVENT_BUS.register(new KeybindWarn());
-            FMLLog.log("Item Render", Level.ERROR, "[Item Render] OpenGL Error, please upgrade your drivers or system.");
+            log.error("[Item Render] OpenGL Error, please upgrade your drivers or system.");
         }
     }
 
