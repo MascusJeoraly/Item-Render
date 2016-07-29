@@ -11,6 +11,7 @@
 package itemrender.client.export;
 
 import itemrender.ItemRenderMod;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 
 /**
@@ -31,7 +32,7 @@ public class ItemData {
 
     public ItemData(ItemStack itemStack) {
         if (ItemRenderMod.debugMode)
-            ItemRenderMod.instance.log.info("Processing " + itemStack.getItem().getUnlocalizedName() + "@" + itemStack.getMetadata());
+            ItemRenderMod.instance.log.info(I18n.format("itemrender.msg.processing", itemStack.getItem().getUnlocalizedName() + "@" + itemStack.getMetadata()));
         name = null;
         englishName = null;
         type = ExportUtils.INSTANCE.getType(itemStack);

@@ -24,7 +24,7 @@ import net.minecraftforge.fml.common.gameevent.InputEvent;
 
 public class KeybindRenderInventoryBlock {
 
-    public final KeyBinding key;
+    private final KeyBinding key;
     public FBOHelper fbo;
     private String filenameSuffix = "";
     private RenderItem itemRenderer = Minecraft.getMinecraft().getRenderItem();

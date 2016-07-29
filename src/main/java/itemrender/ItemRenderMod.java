@@ -14,6 +14,7 @@ import itemrender.client.RenderTickHandler;
 import itemrender.client.export.ExportUtils;
 import itemrender.client.export.ItemList;
 import itemrender.client.keybind.*;
+import net.minecraft.client.resources.I18n;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
@@ -36,7 +37,7 @@ import java.util.List;
         dependencies = "required-after:Forge@[10.12.2.1147,);", guiFactory = "itemrender.ItemRenderGuiFactory", acceptedMinecraftVersions = "[1.9, 1.10.2]")
 public class ItemRenderMod {
 
-    public static final String MODID = "ItemRender";
+    static final String MODID = "ItemRender";
 
     public static final int DEFAULT_MAIN_BLOCK_SIZE = 128;
     public static final int DEFAULT_GRID_BLOCK_SIZE = 32;
@@ -64,15 +65,15 @@ public class ItemRenderMod {
     @SideOnly(Side.CLIENT)
     private RenderTickHandler renderTickHandler = new RenderTickHandler();
 
-    public static void syncConfig() {
-        mainBlockSize = cfg.get(Configuration.CATEGORY_GENERAL, "RenderBlockMain", DEFAULT_MAIN_BLOCK_SIZE, "Main size of export block image").getInt();
-        gridBlockSize = cfg.get(Configuration.CATEGORY_GENERAL, "RenderBlockGrid", DEFAULT_GRID_BLOCK_SIZE, "Grid size of export block image").getInt();
-        mainEntitySize = cfg.get(Configuration.CATEGORY_GENERAL, "RenderEntityMain", DEFAULT_MAIN_ENTITY_SIZE, "Main size of export entity image").getInt();
-        gridEntitySize = cfg.get(Configuration.CATEGORY_GENERAL, "RenderEntityGrid", DEFAULT_GRID_ENTITY_SIZE, "Grid size of export entity image").getInt();
-        playerSize = cfg.get(Configuration.CATEGORY_GENERAL, "RenderPlayer", DEFAULT_PLAYER_SIZE, "Size of export player image").getInt();
-        exportVanillaItems = cfg.get(Configuration.CATEGORY_GENERAL, "ExportVanillaItems", false, "Export Vanilla Items").getBoolean();
-        debugMode = cfg.get(Configuration.CATEGORY_GENERAL, "DebugMode", false, "Enable debug mode").getBoolean();
-        blacklist = Arrays.asList(cfg.get(Configuration.CATEGORY_GENERAL, "BlackList", new String[]{}, "Export blacklist. Format: unlocalizedName@metadata").getStringList());
+    private static void syncConfig() {
+        mainBlockSize = cfg.get(Configuration.CATEGORY_GENERAL, "RenderBlockMain", DEFAULT_MAIN_BLOCK_SIZE, I18n.format("itemrender.cfg.mainblock")).getInt();
+        gridBlockSize = cfg.get(Configuration.CATEGORY_GENERAL, "RenderBlockGrid", DEFAULT_GRID_BLOCK_SIZE, I18n.format("itemrender.cfg.gridblock")).getInt();
+        mainEntitySize = cfg.get(Configuration.CATEGORY_GENERAL, "RenderEntityMain", DEFAULT_MAIN_ENTITY_SIZE, I18n.format("itemrender.cfg.mainentity")).getInt();
+        gridEntitySize = cfg.get(Configuration.CATEGORY_GENERAL, "RenderEntityGrid", DEFAULT_GRID_ENTITY_SIZE, I18n.format("itemrender.cfg.gridentity")).getInt();
+        playerSize = cfg.get(Configuration.CATEGORY_GENERAL, "RenderPlayer", DEFAULT_PLAYER_SIZE, I18n.format("itemrender.cfg.player")).getInt();
+        exportVanillaItems = cfg.get(Configuration.CATEGORY_GENERAL, "ExportVanillaItems", false, I18n.format("itemrender.cfg.vanilla")).getBoolean();
+        debugMode = cfg.get(Configuration.CATEGORY_GENERAL, "DebugMode", false, I18n.format("itemrender.cfg.debug")).getBoolean();
+        blacklist = Arrays.asList(cfg.get(Configuration.CATEGORY_GENERAL, "BlackList", new String[]{}, I18n.format("itemrender.cfg.blacklist")).getStringList());
         if (cfg.hasChanged())
             cfg.save();
     }
@@ -81,7 +82,7 @@ public class ItemRenderMod {
     public void preInit(FMLPreInitializationEvent event) {
         log = event.getModLog();
         if (event.getSide().isServer()) {
-            log.error("Item Render is a client-only mod. Please remove this mod and restart your server.");
+            log.error(I18n.format("itemrender.msg.clientonly"));
             return;
         }
         gl32_enabled = GLContext.getCapabilities().OpenGL32;
@@ -99,7 +100,7 @@ public class ItemRenderMod {
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
         if (event.getSide().isServer()) {
-            log.error("Item Render is a client-only mod. Please remove this mod and restart your server.");
+            log.error(I18n.format("itemrender.msg.clientonly"));
             return;
         }
 
@@ -109,18 +110,18 @@ public class ItemRenderMod {
         if (gl32_enabled) {
             ExportUtils.INSTANCE = new ExportUtils();
 
-            KeybindRenderInventoryBlock defaultRender = new KeybindRenderInventoryBlock(mainBlockSize, "", Keyboard.KEY_LBRACKET, "Render Block (" + mainBlockSize + ")");
+            KeybindRenderInventoryBlock defaultRender = new KeybindRenderInventoryBlock(mainBlockSize, "", Keyboard.KEY_LBRACKET, I18n.format("itemrender.key.block", mainBlockSize));
             RenderTickHandler.keybindToRender = defaultRender;
-            MinecraftForge.EVENT_BUS.register(new KeybindRenderEntity(mainEntitySize, "", Keyboard.KEY_SEMICOLON, "Render Entity (" + mainEntitySize + ")"));
-            MinecraftForge.EVENT_BUS.register(new KeybindRenderEntity(gridEntitySize, "_grid", Keyboard.KEY_APOSTROPHE, "Render Entity (" + gridEntitySize + ")"));
+            MinecraftForge.EVENT_BUS.register(new KeybindRenderEntity(mainEntitySize, "", Keyboard.KEY_SEMICOLON, I18n.format("itemrender.key.entity", mainEntitySize)));
+            MinecraftForge.EVENT_BUS.register(new KeybindRenderEntity(gridEntitySize, "_grid", Keyboard.KEY_APOSTROPHE, I18n.format("itemrender.key.entity", gridEntitySize)));
             MinecraftForge.EVENT_BUS.register(defaultRender);
-            MinecraftForge.EVENT_BUS.register(new KeybindRenderInventoryBlock(gridBlockSize, "_grid", Keyboard.KEY_RBRACKET, "Render Block (" + gridBlockSize + ")"));
+            MinecraftForge.EVENT_BUS.register(new KeybindRenderInventoryBlock(gridBlockSize, "_grid", Keyboard.KEY_RBRACKET, I18n.format("itemrender.key.block", gridBlockSize)));
             MinecraftForge.EVENT_BUS.register(new KeybindToggleRender());
             MinecraftForge.EVENT_BUS.register(new KeybindRenderCurrentPlayer(playerSize));
             MinecraftForge.EVENT_BUS.register(new KeybindExport());
         } else {
             MinecraftForge.EVENT_BUS.register(new KeybindWarn());
-            log.error("[Item Render] OpenGL Error, please upgrade your drivers or system.");
+            log.error(I18n.format("itemrender.msg.openglerror"));
         }
     }
 

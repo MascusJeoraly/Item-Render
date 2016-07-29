@@ -27,10 +27,10 @@ import java.io.IOException;
 import java.nio.IntBuffer;
 
 public final class FBOHelper {
-    public int renderTextureSize = 128;
-    public int framebufferID = -1;
-    public int depthbufferID = -1;
-    public int textureID = -1;
+    private int renderTextureSize = 128;
+    private int framebufferID = -1;
+    private int depthbufferID = -1;
+    private int textureID = -1;
 
     private IntBuffer lastViewport;
     private int lastTexture;
@@ -48,7 +48,7 @@ public final class FBOHelper {
         createFramebuffer();
     }
 
-    public void begin() {
+    void begin() {
         checkGlErrors("FBO Begin Init");
 
         // Remember current framebuffer.
@@ -80,7 +80,7 @@ public final class FBOHelper {
         checkGlErrors("FBO Begin Final");
     }
 
-    public void end() {
+    void end() {
         checkGlErrors("FBO End Init");
 
         GlStateManager.cullFace(GlStateManager.CullFace.BACK);
@@ -109,11 +109,11 @@ public final class FBOHelper {
 
     // This is only a separate function because the texture gets messed with
     // after you're done rendering to read the FBO
-    public void restoreTexture() {
+    void restoreTexture() {
         GlStateManager.bindTexture(lastTexture);
     }
 
-    public void saveToFile(File file) {
+    void saveToFile(File file) {
         // Bind framebuffer texture
         GlStateManager.bindTexture(textureID);
 
@@ -140,7 +140,7 @@ public final class FBOHelper {
         }
     }
 
-    public String getBase64() {
+    String getBase64() {
         // Bind framebuffer texture
         GlStateManager.bindTexture(textureID);
 
@@ -209,7 +209,7 @@ public final class FBOHelper {
         EXTFramebufferObject.glDeleteRenderbuffersEXT(depthbufferID);
     }
 
-    public static void checkGlErrors(String message) {
+    private static void checkGlErrors(String message) {
         int error = GL11.glGetError();
 
         if (error != 0) {

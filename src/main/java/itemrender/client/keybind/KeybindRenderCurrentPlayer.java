@@ -14,6 +14,7 @@ import itemrender.client.rendering.FBOHelper;
 import itemrender.client.rendering.Renderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiChat;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -26,12 +27,12 @@ import org.lwjgl.input.Keyboard;
 
 public class KeybindRenderCurrentPlayer {
 
-    public final KeyBinding key;
-    public FBOHelper fbo;
+    private final KeyBinding key;
+    private FBOHelper fbo;
 
     public KeybindRenderCurrentPlayer(int textureSize) {
         fbo = new FBOHelper(textureSize);
-        key = new KeyBinding("Render Current Player", Keyboard.KEY_P, "Item Render");
+        key = new KeyBinding(I18n.format("itemrender.key.currentplayer"), Keyboard.KEY_P, "Item Render");
         ClientRegistry.registerKeyBinding(key);
     }
 

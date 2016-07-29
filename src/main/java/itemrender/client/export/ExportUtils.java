@@ -17,6 +17,7 @@ import itemrender.client.rendering.FBOHelper;
 import itemrender.client.rendering.Renderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderItem;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.client.resources.Language;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -98,7 +99,7 @@ public class ExportUtils {
 
         for (ItemData data : itemDataList) {
             if (ItemRenderMod.debugMode)
-                ItemRenderMod.instance.log.info("Adding Chinese name for " + data.getItemStack().getItem().getUnlocalizedName() + "@" + data.getItemStack().getMetadata());
+                ItemRenderMod.instance.log.info(I18n.format("itemrender.msg.addCN", data.getItemStack().getItem().getUnlocalizedName() + "@" + data.getItemStack().getMetadata()));
             data.setName(this.getLocalizedName(data.getItemStack()));
         }
 
@@ -110,7 +111,7 @@ public class ExportUtils {
 
         for (ItemData data : itemDataList) {
             if (ItemRenderMod.debugMode)
-                ItemRenderMod.instance.log.info("Adding English name for " + data.getItemStack().getItem().getUnlocalizedName() + "@" + data.getItemStack().getMetadata());
+                ItemRenderMod.instance.log.info(I18n.format("itemrender.msg.addEN", data.getItemStack().getItem().getUnlocalizedName() + "@" + data.getItemStack().getMetadata()));
             data.setEnglishName(this.getLocalizedName(data.getItemStack()));
         }
 

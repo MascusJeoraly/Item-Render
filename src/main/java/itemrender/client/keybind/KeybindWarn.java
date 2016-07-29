@@ -9,6 +9,7 @@
  */
 package itemrender.client.keybind;
 
+import net.minecraft.client.resources.I18n;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import org.lwjgl.input.Keyboard;
@@ -22,6 +23,6 @@ import org.lwjgl.input.Keyboard;
  */
 public class KeybindWarn {
     public KeybindWarn() {
-        ClientRegistry.registerKeyBinding(new KeyBinding("OpenGL Error", Keyboard.KEY_NONE, "Item Render"));
+        ClientRegistry.registerKeyBinding(new KeyBinding(I18n.format("itemrender.key.error"), Keyboard.KEY_NONE, "Item Render"));
     }
 }

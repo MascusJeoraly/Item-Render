@@ -32,11 +32,7 @@ public class ItemList {
     /**
      * Fields are replaced atomically and contents never modified.
      */
-    public static volatile List<ItemStack> items = new ArrayList<ItemStack>();
-    /**
-     * Fields are replaced atomically and contents never modified.
-     */
-    public static volatile ListMultimap<Item, ItemStack> itemMap = ArrayListMultimap.create();
+    static volatile List<ItemStack> items = new ArrayList<ItemStack>();
 
     private static void damageSearch(Item item, List<ItemStack> permutations) {
         HashSet<String> damageIconSet = new HashSet<String>();
@@ -55,7 +51,7 @@ public class ItemList {
             }
     }
 
-    public static String concatenatedDisplayName(ItemStack itemstack) {
+    private static String concatenatedDisplayName(ItemStack itemstack) {
         List<String> list = itemDisplayNameMultiline(itemstack);
         StringBuilder sb = new StringBuilder();
         boolean first = true;
@@ -71,7 +67,7 @@ public class ItemList {
     }
 
     @SuppressWarnings("unchecked")
-    public static List<String> itemDisplayNameMultiline(ItemStack itemstack) {
+    private static List<String> itemDisplayNameMultiline(ItemStack itemstack) {
         List<String> nameList = null;
         try {
             nameList = itemstack.getTooltip(Minecraft.getMinecraft().thePlayer, false);
@@ -123,6 +119,5 @@ public class ItemList {
         }
 
         ItemList.items = items;
-        ItemList.itemMap = itemMap;
     }
 }

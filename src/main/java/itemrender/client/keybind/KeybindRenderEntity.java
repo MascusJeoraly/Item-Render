@@ -23,8 +23,8 @@ import net.minecraftforge.fml.common.gameevent.InputEvent;
 
 public class KeybindRenderEntity {
 
-    public final KeyBinding key;
-    public FBOHelper fbo;
+    private final KeyBinding key;
+    private FBOHelper fbo;
     private String filenameSuffix = "";
 
     public KeybindRenderEntity(int textureSize, String filename_suffix, int keyVal, String des) {

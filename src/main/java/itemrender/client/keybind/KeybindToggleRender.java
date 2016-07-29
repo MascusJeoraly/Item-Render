@@ -12,6 +12,7 @@ package itemrender.client.keybind;
 
 import itemrender.client.RenderTickHandler;
 import net.minecraft.client.gui.GuiChat;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
@@ -24,7 +25,7 @@ public class KeybindToggleRender {
     public final KeyBinding key;
 
     public KeybindToggleRender() {
-        key = new KeyBinding("Toggle Render", Keyboard.KEY_O, "Item Render");
+        key = new KeyBinding(I18n.format("itemrender.key.toggle"), Keyboard.KEY_O, "Item Render");
         ClientRegistry.registerKeyBinding(key);
     }
 
