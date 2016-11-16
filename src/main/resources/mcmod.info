@@ -1,8 +1,8 @@
 [
 {
-  "modid": "ItemRender",
+  "modid": "itemrender",
   "name": "Item Render",
-  "description": "Item Render 1.9/1.10 Edition",
+  "description": "Item Render 1.11 Edition",
   "version": "${version}",
   "mcversion": "${mcversion}",
   "url": "https://github.com/MascusJeoraly/Item-Render",

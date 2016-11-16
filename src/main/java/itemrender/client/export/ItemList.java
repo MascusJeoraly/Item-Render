@@ -16,6 +16,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.TextFormatting;
 
 import java.util.ArrayList;
@@ -93,7 +94,7 @@ public class ItemList {
     @SuppressWarnings("unchecked")
     public static void updateList() {
         LinkedList<ItemStack> items = new LinkedList<ItemStack>();
-        LinkedList<ItemStack> permutations = new LinkedList<ItemStack>();
+        NonNullList<ItemStack> permutations = NonNullList.func_191196_a();
         ListMultimap<Item, ItemStack> itemMap = ArrayListMultimap.create();
 
         for (Item item : (Iterable<Item>) Item.REGISTRY) {

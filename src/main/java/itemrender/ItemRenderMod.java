@@ -33,11 +33,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@Mod(modid = ItemRenderMod.MODID, name = "Item Render", version = "@VERSION@",
-        dependencies = "required-after:Forge@[10.12.2.1147,);", guiFactory = "itemrender.ItemRenderGuiFactory", acceptedMinecraftVersions = "[1.9, 1.10.2]")
+@Mod(modid = ItemRenderMod.MODID, name = "Item Render", version = "@VERSION@", guiFactory = "itemrender.ItemRenderGuiFactory", acceptedMinecraftVersions = "[1.9, 1.11]")
 public class ItemRenderMod {
 
-    static final String MODID = "ItemRender";
+    static final String MODID = "itemrender";
 
     public static final int DEFAULT_MAIN_BLOCK_SIZE = 128;
     public static final int DEFAULT_GRID_BLOCK_SIZE = 32;
