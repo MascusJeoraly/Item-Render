@@ -44,6 +44,7 @@ public class ExportUtils {
     private List<ItemData> itemDataList = new ArrayList<ItemData>();
 
     public ExportUtils() {
+        // Hardcoded value for mcmod.cn only, don't change this unless the website updates
         fboSmall = new FBOHelper(32);
         fboLarge = new FBOHelper(128);
     }
@@ -106,7 +107,7 @@ public class ExportUtils {
         minecraft.getLanguageManager().setCurrentLanguage(new Language("en_US", "US", "English", false));
         minecraft.gameSettings.language = "en_US";
         minecraft.refreshResources();
-        minecraft.fontRendererObj.setUnicodeFlag(false);
+        minecraft.fontRenderer.setUnicodeFlag(false);
         minecraft.gameSettings.saveOptions();
 
         for (ItemData data : itemDataList) {

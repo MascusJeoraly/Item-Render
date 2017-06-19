@@ -42,8 +42,8 @@ public class KeybindRenderInventoryBlock {
             return;
         if (key.isPressed()) {
             Minecraft minecraft = FMLClientHandler.instance().getClient();
-            if (minecraft.thePlayer != null) {
-                ItemStack current = minecraft.thePlayer.getHeldItemMainhand();
+            if (minecraft.player != null) {
+                ItemStack current = minecraft.player.getHeldItemMainhand();
                 if (current != null && current.getItem() != null) {
                     Renderer.renderItem(current, fbo, filenameSuffix, itemRenderer);
                 }

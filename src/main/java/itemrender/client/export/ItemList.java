@@ -14,6 +14,8 @@ import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.ListMultimap;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.IBakedModel;
+import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
@@ -71,7 +73,7 @@ public class ItemList {
     private static List<String> itemDisplayNameMultiline(ItemStack itemstack) {
         List<String> nameList = null;
         try {
-            nameList = itemstack.getTooltip(Minecraft.getMinecraft().thePlayer, false);
+            nameList = itemstack.getTooltip(Minecraft.getMinecraft().player, ITooltipFlag.TooltipFlags.NORMAL);
         } catch (Throwable ignored) {
         }
 
@@ -94,10 +96,10 @@ public class ItemList {
     @SuppressWarnings("unchecked")
     public static void updateList() {
         LinkedList<ItemStack> items = new LinkedList<ItemStack>();
-        NonNullList<ItemStack> permutations = NonNullList.func_191196_a();
+        NonNullList<ItemStack> permutations = NonNullList.create();
         ListMultimap<Item, ItemStack> itemMap = ArrayListMultimap.create();
 
-        for (Item item : (Iterable<Item>) Item.REGISTRY) {
+        for (Item item : Item.REGISTRY) {
 
             if (item == null)
                 continue;
@@ -106,7 +108,9 @@ public class ItemList {
                 permutations.clear();
 
                 if (permutations.isEmpty())
-                    item.getSubItems(item, null, permutations);
+//                    item.getSubItems(null, permutations);
+                    for (CreativeTabs tab : item.getCreativeTabs())
+                        item.getSubItems(tab, permutations);
 
                 if (permutations.isEmpty())
                     damageSearch(item, permutations);
