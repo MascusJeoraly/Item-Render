@@ -22,6 +22,8 @@ import net.minecraft.item.ItemStack;
 public class ItemData {
     private String name;
     private String englishName;
+    private String registerName;
+    private int metadata;
     private String type;
     private int maxStackSize;
     private int maxDurability;
@@ -35,6 +37,8 @@ public class ItemData {
             ItemRenderMod.instance.log.info(I18n.format("itemrender.msg.processing", itemStack.getItem().getUnlocalizedName() + "@" + itemStack.getMetadata()));
         name = null;
         englishName = null;
+        registerName = itemStack.getItem().getRegistryName().toString();
+        metadata=itemStack.getMetadata();
         type = ExportUtils.INSTANCE.getType(itemStack);
         maxStackSize = itemStack.getMaxStackSize();
         maxDurability = itemStack.getMaxDamage() + 1;
