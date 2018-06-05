@@ -36,7 +36,7 @@ public class KeybindExport {
     }
 
     @SubscribeEvent
-    public void onKeyInput(InputEvent.KeyInputEvent event) {
+    public void onKeyInput(InputEvent.KeyInputEvent event) throws IllegalAccessException, Throwable {
         if (FMLClientHandler.instance().isGUIOpen(GuiChat.class))
             return;
         if (key.isPressed()) {
